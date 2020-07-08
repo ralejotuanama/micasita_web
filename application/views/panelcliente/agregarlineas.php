@@ -223,27 +223,27 @@
                               <tbody>
 
                                 <tr>
-                                    <td style="text-align:center;">aqui va descripcion de archivo1</td>
+                                    <td style="text-align:center;">descripcion de archivo1</td>
                                     <td style="text-align:center;"> <input type="file" class="" name="userfile1" id="uploadPDF" size="20" style="line-height:0px;"  /> <input type="button" value="Previsualizar" onclick="PreviewImage();" data-toggle="modal" data-target="#myModal" class="btn btn-primary" /></td>
 
                               </tr>
 
                                <tr>
-                                    <td style="text-align:center;">aqui va descripcion de archivo2</td>
+                                    <td style="text-align:center;">descripcion de archivo2</td>
                                     <td style="text-align:center;"> <input type="file" class="" name="userfile2"  size="20" id="uploadPDF2" style="line-height:0px;"  /> <input type="button" value="Previsualizar" onclick="PreviewImage2();" data-toggle="modal" data-target="#myModal2" class="btn btn-primary" /></td>
 
                               </tr>
 
 
                                <tr>
-                                    <td style="text-align:center;">aqui va descripcion de archivo3</td>
+                                    <td style="text-align:center;">descripcion de archivo3</td>
                                     <td style="text-align:center;"> <input type="file" class="" name="userfile3"  size="20"  style="line-height:0px;" id="uploadPDF3" /> <input type="button" value="Previsualizar" onclick="PreviewImage3();" data-toggle="modal" data-target="#myModal3" class="btn btn-primary" /></td>
 
                                </tr>
 
 
                                <tr>
-                                    <td style="text-align:center;">aqui va descripcion de archivo4</td>
+                                    <td style="text-align:center;">descripcion de archivo4</td>
                                     <td style="text-align:center;"> <input type="file" class="" name="userfile4"  size="20"  style="line-height:0px;" id="uploadPDF4" /> <input type="button" value="Previsualizar" onclick="PreviewImage4();" data-toggle="modal" data-target="#myModal4" class="btn btn-primary" /></td>
 
                               </tr>

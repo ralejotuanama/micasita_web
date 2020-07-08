@@ -36,28 +36,28 @@
                               <tbody>
 
                                 <tr>
-                                     <td style="text-align:center;">aqui va descripcion de archivo1</td>
-                                     <td style="text-align:center;"> <input type="file" class="" name="userfile1"  size="20" style="line-height:0px;"  /></td>
+                                     <td style="text-align:center;">descripcion de archivo1</td>
+                                     <td style="text-align:center;"> <input type="file" class="" name="userfile1" id="uploadPDF" size="20" style="line-height:0px;"/><input type="button" value="ver" onclick="PreviewImage();" data-toggle="modal" data-target="#myModal" class="btn btn-primary"  /></td>
 
                                 </tr>
 
                                 <tr>
-                                     <td style="text-align:center;">aqui va descripcion de archivo2</td>
-                                     <td style="text-align:center;"> <input type="file" class="" name="userfile2"  size="20"  style="line-height:0px;" /></td>
-
-                                </tr>
-
-
-                                <tr>
-                                     <td style="text-align:center;">aqui va descripcion de archivo3</td>
-                                     <td style="text-align:center;"> <input type="file" class="" name="userfile3"  size="20"  style="line-height:0px;" /></td>
+                                     <td style="text-align:center;">descripcion de archivo2</td>
+                                     <td style="text-align:center;"> <input type="file" class="" name="userfile2" id="uploadPDF2" size="20"  style="line-height:0px;" /><input type="button" value="ver" onclick="PreviewImage2();" data-toggle="modal" data-target="#myModal2" class="btn btn-primary" /></td>
 
                                 </tr>
 
 
                                 <tr>
-                                     <td style="text-align:center;">aqui va descripcion de archivo4</td>
-                                     <td style="text-align:center;"> <input type="file" class="" name="userfile4"  size="20"  style="line-height:0px;" value="xx" /></td>
+                                     <td style="text-align:center;">descripcion de archivo3</td>
+                                     <td style="text-align:center;"> <input type="file" class="" name="userfile3" id="uploadPDF3" size="20"  style="line-height:0px;" /><input type="button" value="ver" onclick="PreviewImage3();" data-toggle="modal" data-target="#myModal3" class="btn btn-primary" /></td>
+
+                                </tr>
+
+
+                                <tr>
+                                     <td style="text-align:center;">descripcion de archivo4</td>
+                                     <td style="text-align:center;"> <input type="file" class="" name="userfile4" id="uploadPDF4" size="20"  style="line-height:0px;"  /><input type="button" value="ver" onclick="PreviewImage4();" data-toggle="modal" data-target="#myModal4" class="btn btn-primary" /></td>
 
                                 </tr>
                               </tbody>
@@ -82,6 +82,108 @@
                   
      </div>
  </div>
+
+
+
+ <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Archivo 1</h4>
+      </div>
+      <div class="modal-body">
+      <iframe id="viewer" frameborder="0" scrolling="no" ></iframe>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+       <!-- <button type="button" class="btn btn-primary">Save changes</button>-->
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Archivo 2</h4>
+      </div>
+      <div class="modal-body">
+      <iframe id="viewer2" frameborder="0" scrolling="no"   ></iframe>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+       <!-- <button type="button" class="btn btn-primary">Save changes</button>-->
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Archivo 3</h4>
+      </div>
+      <div class="modal-body">
+      <iframe id="viewer3" frameborder="0" scrolling="no"  ></iframe>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+       <!-- <button type="button" class="btn btn-primary">Save changes</button>-->
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="myModal4" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Archivo 4</h4>
+      </div>
+      <div class="modal-body">
+      <iframe id="viewer4" frameborder="0" scrolling="no"   ></iframe>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+       <!-- <button type="button" class="btn btn-primary">Save changes</button>-->
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<script type="text/javascript">
+            function PreviewImage() {
+                pdffile=document.getElementById("uploadPDF").files[0];
+                pdffile_url=URL.createObjectURL(pdffile);
+                $('#viewer').attr('src',pdffile_url);
+            }
+            function PreviewImage2() {
+                pdffile=document.getElementById("uploadPDF2").files[0];
+               pdffile_url=URL.createObjectURL(pdffile);
+                $('#viewer2').attr('src',pdffile_url);
+            }
+            function PreviewImage3() {
+                pdffile=document.getElementById("uploadPDF3").files[0];
+                pdffile_url=URL.createObjectURL(pdffile);
+                $('#viewer3').attr('src',pdffile_url);
+            }
+            function PreviewImage4() {
+                pdffile=document.getElementById("uploadPDF4").files[0];
+                pdffile_url=URL.createObjectURL(pdffile);
+               //video.srcObject=stream;
+               //srcObject=stream;
+                $('#viewer4').attr('src',pdffile_url);
+            }
+        </script>
 
 
 
