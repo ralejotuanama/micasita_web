@@ -161,18 +161,18 @@
                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                            <h3 id="myModalLabel">Visualizar Archivo Adjunto</h3>
                          </div>
-                         <div class="modal-body" style="margin-bottom:20px;" >
+                        <!-- <div class="modal-body" style="margin-bottom:20px;" >-->
                              <div class="span12" id="div-visualizar-anexo" style="text-align: center">
                                  <div class='progress progress-info progress-striped active'>
                                     <div class='bar' style='width: 100%'></div>
                                  </div>
                              </div>
-                         </div>
+                        <!-- </div>-->
                          
                          <div class="modal-footer" >
                          
                            <button class="btn" data-dismiss="modal" aria-hidden="true">Cerrar</button>
-                           <a href="" id-imagem="" class="btn btn-inverse" id="download">Download</a>
+                           <!--<a href="" id-imagem="" class="btn btn-inverse" id="download">Download</a>-->
                            <a href="" link="" class="btn btn-danger" id="excluir-anexo">Eliminar Archivo Adjunto</a>
                          </div>
                     </div>
@@ -228,7 +228,8 @@ $(document).ready(function(){
            var id = $(this).attr('imagem');
            var otro = $(this).attr('otro');
            var url = '<?php echo base_url(); ?>index.php/panelcliente/excluirAnexo/';
-           $("#div-visualizar-anexo").html('<div>'+otro+'</div>');
+          /* $("#div-visualizar-anexo").html('<div>'+otro+'</div>');*/
+          $("#div-visualizar-anexo").html('<iframe frameborder="0" src="'+link+'"></iframe>');
            $("#excluir-anexo").attr('link', url+id);
            $("#download").attr('href', "<?php echo base_url(); ?>index.php/panelcliente/downloadanexo/"+id);
 

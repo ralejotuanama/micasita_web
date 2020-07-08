@@ -236,11 +236,11 @@
                                             $link = $a->url.$a->anexo;
                                         }
                                         if($cont == $flag){
-                                            echo '<tr><td style=text-align:center;>'.$a->anexo.'</td><td style=text-align:center;><div style="margin-left: 0" class="span"><a href="#modal-anexo" imagem="'.$a->idAnexos.'" link="'.$link.'" role="button" otro="'.$a->anexo.'" class="btn anexo" data-toggle="modal"><p>'.$a->anexo.'</p></a></div></td></tr>'; 
+                                            echo '<tr><td style=text-align:center;>'.$a->anexo.'</td><td style=text-align:center;><div style="margin-left: 0" class="span"><a href="#modal-anexo" id="uploadPDF" imagem="'.$a->idAnexos.'" link="'.$link.'" role="button" otro="'.$a->anexo.'" class="btn anexo" data-toggle="modal" ><p>'.$a->anexo.'</p></a></div></td></tr>'; 
                                             $flag += 4;
                                          }
                                          else{
-                                            echo '<tr><td style=text-align:center;>'.$a->anexo.'</td><td style=text-align:center;><div class="span"><a href="#modal-anexo" imagem="'.$a->idAnexos.'" link="'.$link.'" role="button" class="btn anexo" otro="'.$a->anexo.'" data-toggle="modal"><p>'.$a->anexo.'</p></a></div></td></tr>'; 
+                                            echo '<tr><td style=text-align:center;>'.$a->anexo.'</td><td style=text-align:center;><div class="span"><a href="#modal-anexo" imagem="'.$a->idAnexos.'" link="'.$link.'" role="button" class="btn anexo" otro="'.$a->anexo.'" data-toggle="modal" ><p>'.$a->anexo.'</p></a></div></td></tr>'; 
                                          }
                                          $cont ++;
                                     } ?>
@@ -266,14 +266,17 @@
                                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                                  <h3 id="myModalLabel">Visualizar Archivo Adjunto</h3>
                             </div>
-                            <div class="modal-body">
+                            <!--<div class="modal-body" style="border:1px solid green;">-->
                                <div class="span12" id="div-visualizar-anexo" style="text-align: center;">
-                                  <div class='progress progress-info progress-striped active'><div class='bar' style='width: 100%'></div>
+                                    <div class='progress progress-info progress-striped active'>
+                                      <div class='bar' style='width: 100%'></div>
+                                    </div>
                                </div>
-                            </div>
+                            <!--</div>-->
                         </div>
                         <div class="modal-footer">
-                          <button class="btn" data-dismiss="modal" aria-hidden="true">Cerrar</button>
+                          <!--<button class="btn" data-dismiss="modal" aria-hidden="true">Cerrar</button>-->
+                          
                            <!-- <a href="" id-imagem="" class="btn btn-inverse" id="download">Download</a>
                            <a href="" link="" class="btn btn-danger" id="excluir-anexo">Eliminar Archivo Adjunto</a>-->
                         </div>
@@ -328,13 +331,30 @@
                      var id = $(this).attr('imagem');
                      var otro = $(this).attr('otro');
                      var url = '<?php echo base_url(); ?>os/excluirAnexo/';
-                     $("#div-visualizar-anexo").html('<div >'+otro+ '</div>');
+
+                    /* $("#div-visualizar-anexo").html('<div >'++'</div>');*/
+
+                    $("#div-visualizar-anexo").html('<iframe frameborder="0" src="'+link+'"></iframe>');
+                    /*<img src="'+link+'" alt="">*/
+
                      $("#excluir-anexo").attr('link', url+id);
 
                     $("#download").attr('href', "<?php echo base_url(); ?>index.php/os/downloadanexo/"+id);
 
                });
     })
+
+
+
+
+            function PreviewImage() {
+                pdffile=document.getElementById("uploadPDF").files[0];
+                pdffile_url=URL.createObjectURL(pdffile);
+                $('#viewer').attr('src',pdffile_url);
+                
+            }
+            
+      
 
 
 </script>
