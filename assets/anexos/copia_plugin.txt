@@ -1,0 +1,713 @@
+
+
+
+<?php
+/**
+* Plugin Name: KFP Reclamos
+*/
+// Cuando el plugin se active se crea la tabla para recoger los datos si no existe
+register_activation_hook(__FILE__, 'Kfp_reclamos_init');
+ 
+/**
+ * Crea la tabla para recoger los datos del formulario
+ *
+ * @return void
+ */
+function Kfp_reclamos_init() 
+{
+    global $wpdb; // Este objeto global permite acceder a la base de datos de WP
+    // Crea la tabla  si no existe
+    // Utiliza el mismo prefijo del resto de tablas
+    $tabla_reclamos = $wpdb->prefix . 'reclamo';
+    // Utiliza el mismo tipo de orden de la base de datos
+    $charset_collate = $wpdb->get_charset_collate();
+    // Prepara la consulta
+    $query = "CREATE TABLE IF NOT EXISTS $tabla_reclamos (
+        id mediumint(9) NOT NULL AUTO_INCREMENT,
+        dni varchar(20) NOT NULL,
+        nombre varchar(200) NOT NULL,
+        telefono varchar(50) NOT NULL,
+        correo varchar(100) NOT NULL,
+        amabilidad smallint(4) NOT NULL,
+        atencion smallint(4) NOT NULL,
+        capacidad smallint(4) NOT NULL,
+        respuestas smallint(4) NOT NULL,
+        calidad smallint(4) NOT NULL,
+        tiempo text NOT NULL,
+        created_at datetime NOT NULL,
+        UNIQUE (id)
+        ) $charset_collate;";
+    // La funcion dbDelta permite crear tablas de manera segura se
+    // define en el archivo upgrade.php que se incluye a continuacion
+    include_once ABSPATH . 'wp-admin/includes/upgrade.php';
+    dbDelta($query); // Lanza la consulta para crear la tabla de manera segura
+}
+
+// Define el shortcode y lo asocia a una funcion
+add_shortcode('kfp_reclamo_form', 'Kfp_Reclamo_form');
+ 
+/** 
+ * Define la función que ejecutará el shortcode
+ * De momento sólo pinta un formulario que no hace nada
+ * 
+ * @return string
+ */
+
+function Kfp_Reclamo_form() 
+{
+    // Esta función de PHP activa el almacenamiento en búfer de salida (output buffer)
+    // Cuando termine el formulario lo imprime con la función ob_get_clean
+
+    global $wpdb; // Este objeto global permite acceder a la base de datos de WP
+    // Si viene del formulario  graba en la base de datos
+
+        if (($_POST['dni'] != '' && isset($_POST['dni']))
+        AND ($_POST['nombre'] != '' && isset($_POST['nombre']))
+        AND   ($_POST['telefono'] != '' && isset($_POST['telefono']))   
+    ) {
+        $tabla_reclamos = $wpdb->prefix . 'reclamo'; 
+       
+        $primermax = 0;
+
+        $dni = $_POST["dni"];
+        $codigo = date('Ymd')."-".$_POST["dni"];
+        $nombre = $_POST["nombre"];
+        $direccion = $_POST["direccion"];
+        $departamento = $_POST["departamento"];
+        $provincia = $_POST["provincia"];
+        $distrito = $_POST["distrito"];
+        $telefono = $_POST["telefono"];
+        $correo = $_POST["correo"];
+        $celular = $_POST["celular"];
+
+        $selected = $_POST["respuesta"];
+        /* recuoperar datos de checkbo respuestas*/
+       /* if (is_array($_POST['respuesta'])) {
+        $selected = '';
+        $num_respuesta = count($_POST['respuesta']);
+        $current = 0;
+        foreach ($_POST['respuesta'] as $key => $value) {
+            if ($current != $num_respuesta-1)
+                $selected .= $value.', ';
+            else
+                $selected .= $value.'.';
+            $current++;
+        }
+       }*/
+      
+        $productos = $_POST["productos"];
+
+
+
+          /* recuperar datos de check box tipo reclamo*/
+       /* if (is_array($_POST['tipore'])) {
+        $selected2 = '';
+        $num_tipore = count($_POST['tipore']);
+        $current = 0;
+        foreach ($_POST['tipore'] as $key => $value) {
+            if ($current != $num_tipore-1)
+                $selected2 .= $value.', ';
+            else
+                $selected2 .= $value.'.';
+            $current++;
+        }
+         }*/
+
+        $selected2 = $_POST["tipore"];
+
+        $detalle = $_POST["detalle"];      //detalle
+        $created_at = date('Y-m-d H:i:s');  //fecha creacion registro
+
+        $nombre1 = $_POST["nombre"];
+
+
+        $wpdb->insert(
+            $tabla_reclamos,
+            array(
+                'dni' => $dni,
+                'codigo' => $codigo,
+                'nombre' => $nombre,
+                'direccion' => $direccion,
+                'departamento' => $departamento,
+                'provincia' => $provincia,
+                'distrito' => $distrito,
+                'telefono' => $telefono,
+                'correo' => $correo,
+                'celular' => $celular,
+                'respuesta' => $selected,
+                'productos' => $productos,
+                'tiporeclamo' => $selected2,
+                'detalle' => $detalle,
+                'created_at' => $created_at,
+                'nombre1' => $nombre1,
+            )
+        );
+
+       $primermax = $wpdb->get_var( "SELECT MAX(id) AS id FROM wp_reclamo");  //ultimo ingresado
+
+       if($primermax < 10){
+              $cod = date('Ymd')."-00000".$primermax ;
+       }else{
+          if($primermax < 100){
+              $cod = date('Ymd')."-0000".$primermax;
+       }else{
+          if($primermax < 1000){
+              $cod = date('Ymd')."-000".$primermax;
+            }
+          } 
+      }
+
+     $wpdb->update(
+            $tabla_reclamos,
+            array(          
+                'dni' => $dni,
+                'codigo' => $cod,
+                'nombre' => $nombre,
+                'direccion' => $direccion,
+                'departamento' => $departamento,
+                'provincia' => $provincia,
+                'distrito' => $distrito,
+                'telefono' => $telefono,
+                'correo' => $correo,
+                'celular' => $celular,
+                'respuesta' => $selected,
+                'productos' => $productos,
+                'tiporeclamo' => $selected2,
+                'detalle' => $detalle,
+                'created_at' => $created_at,
+                'nombre1' => $nombre1
+            ),
+                 array('id' => $primermax)
+        );
+
+                  $recipient = "ralejo@micasita.com.pe,".$correo; 
+
+                  $typeFile= $_FILES["archivo"]["type"];
+                  $nameFile = $_FILES["archivo"]["name"];
+                  $tmp = $_FILES["archivo"]["tmp_name"];  
+
+
+                  $typeFile2= $_FILES["archivo2"]["type"];
+                  $nameFile2 = $_FILES["archivo2"]["name"];
+                  $tmp2 = $_FILES["archivo2"]["tmp_name"];  
+
+                   $typeFile3= $_FILES["archivo3"]["type"];
+                  $nameFile3 = $_FILES["archivo3"]["name"];
+                  $tmp3 = $_FILES["archivo3"]["tmp_name"]; 
+
+
+              
+                  //Asunto del email
+                  $subject = 'Pagina Web - Reclamos';
+ 
+                  //La dirección de envio del email es la de nuestro blog por lo que agregando este header podremos responder al remitente original
+
+
+                   $headers = "From:" . $nombre ." <".$correo.">\r\n" .
+                            "Reply-To:". $nombre . " <" . $correo .  ">\r\n" ;
+                   $headers .= "MIME-Version: 1.0\r\n";
+                   $headers .= "Content-Type: multipart/mixed; boundary=\"=C=T=E=C=\"\r\n\r\n";
+
+
+                  //Montamos el cuerpo de nuestro e-mail
+
+                    $message .= "<table><tr><td><strong>CÓDIGO:</strong></td><td>". $cod."</td>\r\n";
+                    $message .= "<tr><td><strong>DNI:</strong></td><td>". $dni."</td></tr>\r\n";
+                    $message .= "<tr><td><strong>NOMBRE Y APELLIDOS:</strong></td><td>". $nombre."</td></tr>\r\n";
+                    $message .= "<tr><td><strong>DIRECCIÓN:</strong></td></td>". $direccion."</td></tr>\r\n";
+                    $message .= "<tr><td><strong>CORREO:</trong></td><td>". $correo."</td></tr>\r\n";
+                    $message .= "<tr><td><strong>TELÉFONO1:</strong></td><td>". $telefono."</td></tr>\r\n";
+                    $message .= "<tr><td><strong>TELÉFONO2:</strong></td><td>". $celular."</td></tr>\r\n";
+                    $message .= "<tr><td><strong>RESPUESTA POR:</strong></td><td>". $selected."</td></tr>\r\n";
+                    $message .= "<tr><td><strong>PRODUCTOS:</strong></td><td>". $productos."</td></tr>\r\n";
+                    $message .= "<tr><td><strong>TIPO RECLAMO:</strong></td><td>". $selected2."</td></tr>\r\n";
+                    $message .= "<tr><td><strong>DETALLE:</strong></td><td>". $detalle."</td></tr>\r\n";
+                    $message .= "<tr><td><strong>ADJUNTOS:</strong></td><td>". $nameFile ."<br>".$nameFile2."<br>".$nameFile3."<br></td></tr></table>\r\n";
+                    $message .= "<p>Acepto las condiciones de tratamiento de datos personales.</p>\r\n";
+
+                    $string_att_array = array();
+                      if (isset($nameFile) & !empty($nameFile)) {
+                         $str_att1 = array();
+	                 $str_att1[0] =  file_get_contents($tmp);
+	                 $str_att1[1] =  $nameFile;
+	                 $str_att1[2] =  "base64";
+	                 $str_att1[3] =  "application/octet-stream";
+                         array_push ( $string_att_array , $str_att1 );
+                       }
+
+                      if (isset($nameFile2) & !empty($nameFile2)) {
+                         $str_att2 = array();
+	                 $str_att2[0] =  file_get_contents($tmp2);
+	                 $str_att2[1] =  $nameFile2;
+	                 $str_att2[2] =  "base64";
+	                 $str_att2[3] =  "application/octet-stream";
+                         array_push ( $string_att_array , $str_att2 );
+                       }
+
+                      if (isset($nameFile3) & !empty($nameFile3)) {
+                         $str_att3 = array();
+	                 $str_att3[0] =  file_get_contents($tmp3);
+	                 $str_att3[1] =  $nameFile2;
+	                 $str_att3[2] =  "base64";
+	                 $str_att3[3] =  "application/octet-stream";
+                         array_push ( $string_att_array , $str_att3 );
+                       }
+
+                      function set_html_content_type() {
+                         return 'text/html';
+                       }
+
+                        add_filter('wp_mail_content_type','set_html_content_type');
+
+                       //Por último enviamos el email
+                       $envio = wp_mail2($recipient, $subject, $message, $headers, $string_att_array,$string_att_array);
+                       remove_filter( 'wp_mail_content_type', 'set_html_content_type' );
+
+ 
+                       if ($envio) {
+                         ?>
+                                <div class="alert alert-success alert-dismissable" id="bot2">
+                                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true" id="bot" onclick="ocultar()">&times;</button>
+                                        El formulario ha sido enviado correctamente, su codigo de reclamo es: <?php echo $cod;  ?>.
+                                </div>
+                          <?php }else {?>
+                                 <div class="alert alert-danger alert-dismissable">
+                                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true" id="bot" onclick="ocultar()">&times;</button>
+                                        Se ha producido un error enviando el formulario. Puede intentarlo más tarde o ponerse en contacto con nosotros
+                                         escribiendo un mail a "destinatario@email.com"
+                                 </div>
+                                <?php }
+
+                          }
+                       ob_start();
+                     ?>
+
+
+
+               
+   <div class="container" >
+
+           <div class="row">
+
+             <div class="col-xs-12" style="border:1px solid #cccccc;">
+                  <form action="<?php get_the_permalink(); ?>" method="post" id="form_encuesta
+                     class="cuestionario""    enctype="multipart/form-data">
+                    <br>
+
+                   <h2 style="text-align:center;">FORMULARIO DE ATENCI&Oacute;N DE RECLAMOS</h2>
+                   <h2 style="text-align:center;">SISTEMA FINACIERO</h2>
+                  
+                   <p style="border-bottom:2px solid;"><strong>DATOS PERSONALES:</strong></p>
+                   <p>Es menor de edad ? </p>
+
+                   <div class="row"> 
+  
+                                              
+
+                       <div class="col-xs-6">
+                           <div class="custom-control custom-radio custom-control-inline">
+                               <input type="radio" id="customRadioInlinemayor1" name="mayoredad" class="custom-control-input" value="SI" required="required" checked>
+                               <label class="custom-control-label" for="customRadioInlinemayor1">SI</label>
+                           </div>
+                       </div>
+
+                       <div class="col-xs-6">
+                            <div class="custom-control custom-radio custom-control-inline">
+                                <input type="radio" id="customRadioInlinemayor2" name="mayoredad" class="custom-control-input" value="NO" required="required" >
+                                <label class="custom-control-label" for="customRadioInlinemayor2">NO</label>
+                            </div>
+                        </div>
+
+                    </div>
+     
+                      <br>
+                      <br>
+
+                     <div class="row"> 
+                       <div class="col-xs-6">
+
+                         <p>Tipo de documento:(requerido)</p>
+
+                          <div class="custom-control custom-radio custom-control-inline">
+                                <input type="radio" id="customRadioInlinetipodoc1" name="tipodoc" class="custom-control-input" value="DNI" required="required" checked >
+                                <label class="custom-control-label" for="customRadioInlinetipodoc1">DNI</label>
+                            </div>
+                             <br>
+                             <br>
+
+                           <div class="custom-control custom-radio custom-control-inline">
+                                <input type="radio" id="customRadioInlinetipodoc2" name="tipodoc" class="custom-control-input" value="PASAPORTE" required="required" >
+                                <label class="custom-control-label" for="customRadioInlinetipodoc2">PASAPORTE</label>
+                            </div>
+
+                             <br>
+                             <br>
+                              <div class="custom-control custom-radio custom-control-inline">
+                                <input type="radio" id="customRadioInlinetipodoc3" name="tipodoc" class="custom-control-input" value="CE" required="required" >
+                                <label class="custom-control-label" for="customRadioInlinetipodoc3">CE</label>
+                            </div>
+
+                             <br>
+                               <br>
+                              <div class="custom-control custom-radio custom-control-inline">
+                                <input type="radio" id="customRadioInlinetipodoc4" name="tipodoc" class="custom-control-input" value="OTROS" required="required" >
+                                <label class="custom-control-label" for="customRadioInlinetipodoc4">OTROS</label>
+                            </div>
+                       </div>
+
+
+                       <div class="col-xs-6">
+                         <p>Nro de Documento:(requerido)</p>
+                              <input type="text" name="dni" id="dni" required   maxlength="12"  onKeyPress="if (event.keyCode < 48 || event.keyCode > 57)event.returnValue = false;">
+                       </div>
+                    </div>
+
+                      
+
+                       
+                        <br>
+                        <br>
+                        
+
+                      <div class="row">
+                          <div class = "col-xs-4">
+                               <div class="form-input">
+                                   <label for="nombre"><strong>Nombres:</strong>(requerido)</label>
+                                   <input type="text" name="nombre" id="nombre" required onkeypress="return soloLetras(event)">
+                               </div>
+                         </div>
+
+                          <div class = "col-xs-4">
+                              <div class="form-input">
+                                   <label for="nombre"><strong>Primer Apellido:</strong>(requerido)</label>
+                                   <input type="text" name="primerapellido" id="primerapellido" required onkeypress="return soloLetras(event)">
+                               </div>
+                          </div>
+
+                          <div class = "col-xs-4">
+                               <div class="form-input">
+                                 <label for="nombre"><strong>Segundo Apellido:</strong>(requerido)</label>
+                                 <input type="text" name="segundoapellido" id="segundoapellido" required onkeypress="return soloLetras(event)">
+                               </div>
+                          </div>
+
+                      </div>
+
+
+
+                        <br>
+                        <br>
+         
+                           
+                         
+                         <div class="row" style="border:1px solid red;">
+                           
+                               <div class="col-xs-6">
+                                    <p>Representa a una empresa ? </p>
+                                     <div class="custom-control custom-radio custom-control-inline">
+                                        <input type="radio" id="customRadioInlinerepre1" name="representa" class="custom-control-input" value="SI" required="required" checked>
+                                        <label class="custom-control-label" for="customRadioInlinerepre1">SI</label>
+                                     </div>
+                               </div>
+
+                               <div class="col-xs-6">
+                                    <div class="custom-control custom-radio custom-control-inline">
+                                       <input type="radio" id="customRadioInlinerepre2" name="representa" class="custom-control-input" value="NO" required="required" >
+                                       <label class="custom-control-label" for="customRadioInlinerepre2">NO</label>
+                                   </div>
+                               </div>
+
+                         </div>
+
+
+
+
+                      <br>
+                      <br>
+
+
+                         <!--<div class="row">
+
+                       <div class="form-input">
+                               <label for="direccion"><strong>Direcci&oacute;n:</strong>(requerido)</label>
+                               <input type="text" name="direccion" id="direccion" required>
+                       </div>
+
+                         <br>
+
+
+                         <div class="form-input">
+                                  <label for="departamento"><strong>Departamento:</strong>(requerido)</label>
+                                  <input type="text" name="departamento" id="departamento" required>
+                         </div>
+
+                          <br>
+                          <div class="form-input">
+                                   <label for="provincia"><strong>Provincia:</strong>(requerido)</label>
+                                   <input type="text" name="provincia" id="provincia" required>
+                          </div>
+
+                           <br>
+
+                          <div class="form-input">
+                                       <label for="distrito"><strong>Distrito:</strong>(requerido)</label>
+                                       <input type="text" name="distrito" id="distrito" required>
+                          </div>
+
+                           <br>
+
+                         <div class="form-input">
+                                      <label for='correo'><strong>Su e-mail:</strong>(requerido)</label>
+                                      <input type="email" name="correo" id="correo" style="width:100% ;height:34px;" required>
+                         </div>
+
+                            <br>
+
+                         <div class="form-input">
+                                      <label for='telefono'><strong>Tel&eacute;fono1:</strong>(requerido)</label>
+                                      <input type="text" name="telefono" id="telefono" required onKeyPress="if (event.keyCode < 48 || event.keyCode > 57)event.returnValue = false;" maxlength="10">
+                          </div>
+
+                            <br>
+                         <div class="form-input">
+                                    <label for='celular'><strong>Tel&eacute;fono2:</strong>(opcional)</label>
+                                    <input type="text" name="celular" id="celular"  onKeyPress="if (event.keyCode < 48 || event.keyCode > 57)event.returnValue = false;" maxlength="12">
+                        </div>
+
+                    </div>-->
+
+                            <br>
+
+      
+                       <!-- <div class="form-input">
+                             <p><strong>S&iacute;rvase recibir su respuesta por:</strong>(requerido)</p>
+
+                           <div class="col-xs-4">
+                                  <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" id="customRadioInlinerpta1" name="respuesta" class="custom-control-input" value="Correo" required="required" checked>
+                                    <label class="custom-control-label" for="customRadioInlinerpta1">Correo Electr&oacute;nico</label>   
+                                  </div>
+                            </div>
+
+                           <div class="col-xs-4">
+                              <div class="custom-control custom-radio custom-control-inline">
+                                     <input type="radio" id="customRadioInlinerpta2" name="respuesta" class="custom-control-input" value="Carta" required="required">
+                                    <label class="custom-control-label" for="customRadioInlinerpta2">Carta</label>   
+                              </div>
+                          </div>
+
+                           <div class="col-xs-4">
+                                  <div class="custom-control custom-radio custom-control-inline">
+                                     <input type="radio" id="customRadioInlinerpta3" name="respuesta" class="custom-control-input" value="Llamada" required="required">
+                                     <label class="custom-control-label" for="customRadioInlinerpta3">Llamada Telef&oacute;nica</label>   
+                                 </div>
+                          </div>
+                       </div>-->
+
+
+                        <br>
+                        <br>
+
+                         <!--<p style="border-bottom:2px solid;"><strong>Datos del Reclamo:</strong></p>
+                               <br>
+
+                                                   <p><strong>Productos:</strong>(requerido)</p>
+
+                            <div class="col-xs-4">
+                                   <div class="custom-control custom-radio custom-control-inline">
+                                       <input type="radio" id="customRadioInlineprod1" name="productos" class="custom-control-input" value="Credito MiVivienda" required="required">
+                                       <label class="custom-control-label" for="customRadioInlineprod1">Cr&eacute;dito MiVivienda
+                                       </label>   
+                                   </div>
+                            </div>
+
+                           <div class="col-xs-4">
+                                    <div class="custom-control custom-radio custom-control-inline">
+                                       <input type="radio" id="customRadioInlineprod2" name="productos" checked class="custom-control-input" value="Credito miCasita" required="required">
+                                        <label class="custom-control-label" for="customRadioInlineprod2">Cr&eacute;dito miCasita</label>   
+                                    </div>
+                          </div>
+
+                           <div class="col-xs-4">
+                                     <div class="custom-control custom-radio custom-control-inline">
+                                          <input type="radio" id="customRadioInlineprod3" name="productos" class="custom-control-input" value="Credito Techo Propio" required="required">
+                                            <label class="custom-control-label" for="customRadioInlineprod3">Cr&eacute;dito Techo Propio
+                                            </label>   
+                                      </div>
+                           </div>-->
+
+
+         
+     
+
+                            <br>
+                            <br>
+       
+     
+
+                        <!--<p><strong>Tipo de Reclamo:</strong>(requerido)</p>
+          
+                           <div class="col-xs-2">
+                                   <div class="custom-control custom-radio custom-control-inline">
+                                        <input type="radio" id="customRadioInlinetipo1" name="tipore" checked class="custom-control-input" value="Reclamo" required="required">
+                                        <label class="custom-control-label" for="customRadioInlinetipo1">Reclamo</label>
+                  
+                                  </div>
+                          </div>
+
+                           <div class="col-xs-2">
+                                  <div class="custom-control custom-radio custom-control-inline">
+                                        <input type="radio" id="customRadioInlinetipo2" name="tipore" class="custom-control-input" value="Consulta" required="required">
+                                         <label class="custom-control-label" for="customRadioInlinetipo2">Consulta</label>
+                  
+                                   </div>
+                          </div>
+
+
+                            <div class="col-xs-2">
+                                    <div class="custom-control custom-radio custom-control-inline">
+                                          <input type="radio" id="customRadioInlinetipo3" name="tipore" class="custom-control-input" value="Queja" required="required">
+                                          <label class="custom-control-label" for="customRadioInlinetipo3">Queja</label>
+                                     </div>
+                            </div>
+
+                            <div class="col-xs-3">
+                                      <div class="custom-control custom-radio custom-control-inline">
+                                            <input type="radio" id="customRadioInlinetipo4" name="tipore" class="custom-control-input" value="Sugerencia" required="required">
+                                            <label class="custom-control-label" for="customRadioInlinetipo4">Sugerencia</label>
+                  
+                                      </div>
+                            </div>
+   
+                            <div class="col-xs-3">
+                                      <div class="custom-control custom-radio custom-control-inline">
+                                           <input type="radio" id="customRadioInlinetipo5" name="tipore" class="custom-control-input" value="Otros" required="required">
+                                           <label class="custom-control-label" for="customRadioInlinetipo5">Otros</label>
+                  
+                                      </div>
+                           </div>-->
+
+
+                            <br>
+                            <br>
+                             <!-- <div class="form-input">
+                                        <label for="detalle"><strong>Detalle:</strong></label><br>
+                                              <textarea rows="4" cols="50" name="detalle" id="detalle">
+                                              </textarea>
+                              </div>-->
+
+                            <br>
+                            <br>
+                          <!--<p><strong>Documentos Adjuntos:</strong><br>
+                          <p>Puede adjuntar vouchers, estado de cuenta, im&aacute;genes u otros documentos para sustentar su reclamo.</p>
+                 
+                               <input type="file" name="archivo" id="archivo" class="subir" multiple="true"><br><br>                       
+                               <input type="file" name="archivo2" id="archivo2" multiple="true"><br><br>
+                               <input type="file" name="archivo3" id="archivo3" multiple="true"><br><br>
+
+                          <br>
+
+
+                         
+
+
+                          <p>Si ha excedido la capacidad de los documentos para adjuntar puede enviarlos a trav&eacute;s del 
+                                 buz&oacute;n: <strong>atencionalusuario@micasita.com.pe</strong> indicando en el asunto el numero de su reclamo o solicitud, 
+                                  el cual obtendr&aacute; al enviar el formulario.</p>
+
+                          <p>(*)Le informamos que los datos personales que proporcione ser&aacute;n tratados conforme a la ley Nro 29733 y su reglamento. Si desea conocer m&aacute;s sobre la ley de Protecci&oacute;n de datos personales ingrese 
+                             <a href="https://www.minjus.gob.pe/registro-proteccion-datos-personales/" target="_blank">Aqu&iacute;</a>
+                          </p>
+
+                        <input type="checkbox" name="condiciones" value="condiciones" required>He le&iacute;do y acepto las condiciones de tratamiento de mis datos personales.
+                        <br>
+                        <br>
+                         <div class = "g-recaptcha" data-sitekey ="6LePQMgUAAAAAPM1gwc-J6ZlH4Piv-iHeBOOI_Er">
+                         </div>
+                         <br>
+
+                          <div class="form-input">
+                             <input type="submit" value="Enviar" id="boton3" name="boton3" style="background:#00AB69; color:#fff;padding:10px 25px;">
+                          </div>-->
+                 </div>
+
+                             <style>
+                               #boton3 {
+                                       color: #5B666F !important;
+                                       font-size: 20px;
+                                       font-weight: 500;
+                                       padding: 6px 20px !important;
+                                       background: rgba(0,0,0,0);
+                                       border: 2px solid;
+                                       border-color: #318aac;
+                                       transition: all 1s ease;
+                                       position: relative;
+                                       border-radius: 6px;
+                                     }
+                              #boton3:hover {
+                                      background: #318aac;
+                                      color: #fff !important;
+                                       border-radius: 6px;
+                                      cursor: pointer;
+                                    }
+
+
+                               input[type=radio]:checked  .check {
+                                      border: 5px solid #0DFF92;
+                                   }
+
+
+
+
+                                                                                            </style>
+                            <br>
+                </form>
+
+                  <script src='https://www.google.com/recaptcha/api.js'></script>
+                 <script>
+                       /* };*/
+      
+                  </script>
+
+                  <script>
+
+                        function soloLetras(e){
+                            key = e.keyCode || e.which;
+                            tecla = String.fromCharCode(key).toLowerCase();
+                            letras = " áéíóúabcdefghijklmnñopqrstuvwxyz";
+                            especiales = "8-37-39-46";
+
+                            tecla_especial = false
+                               for(var i in especiales){
+                                   if(key == especiales[i]){
+                               tecla_especial = true;
+                            break;
+                                }
+                             }
+
+                           if(letras.indexOf(tecla)==-1 && !tecla_especial){
+                                  return false;
+                                }
+                              }
+
+
+                           function ocultar(){
+                              document.getElementById('bot2').style.display = 'none';
+                           }
+
+                </script>
+
+
+                
+              </div>
+
+               <!--<div class="col-xs-5">
+                    <img alt src="http://www.micasita.com.pe/wp-content/uploads/2019/03/data_update-1024x1024.png" class="img-responsive">
+               </div>-->
+        </div>
+       </div>
+
+    <?php 
+    // Devuelve el contenido del buffer de salida
+    return ob_get_clean();
+ }
