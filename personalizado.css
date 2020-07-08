@@ -1,0 +1,187 @@
+                                           #boton3 {
+                                                  color: #5B666F !important;
+                                                  font-size: 20px;
+                                                  font-weight: 500;
+                                                  padding: 6px 20px !important;
+                                                  background: rgba(0,0,0,0);
+                                                  border: 2px solid;
+                                                  border-color: #318aac;
+                                                  transition: all 1s ease;
+                                                  position: relative;
+                                                  border-radius: 6px;
+                                               }
+                                        #boton3:hover {
+                                                        background: #318aac;
+                                                        color: #fff !important;
+                                                        border-radius: 6px;
+                                                        cursor: pointer;
+                                                      }
+
+
+                                        input[type=radio]:checked  .check {
+                                                          border: 5px solid #0DFF92;
+                                                         }
+
+                                        
+                                           .custom-file-upload {
+                                              border: 1px solid #ccc;
+                                              display: inline-block;
+                                              padding: 6px 12px;
+                                             cursor: pointer;
+                                           }
+
+
+
+
+                                          .input-file-container {
+                                              position: relative;
+                                              width: 225px;
+                                            } 
+                                            .js .input-file-trigger {
+                                              display: block;
+                                              padding: 2px 10px;
+                                              background: #39D2B4;
+                                              color: #fff;
+                                              font-size: 1em;
+                                              transition: all .4s;
+                                              cursor: pointer;
+                                             }
+                                            .js .input-file {
+                                              position: absolute;
+                                              top: 0; left: 0;
+                                              width: 225px;
+                                              opacity: 0;
+                                               padding: 14px 0;
+                                               cursor: pointer;
+                                             }
+                                             .js .input-file:hover + .input-file-trigger,
+                                             .js .input-file:focus + .input-file-trigger,
+                                             .js .input-file-trigger:hover,
+                                             .js .input-file-trigger:focus {
+                                             background: #34495E;
+                                             color: #39D2B4;
+                                             }
+
+
+                                             .file-return {
+                                                            margin: 0;
+                                                             padding-left: 10px;
+                                                          }
+                                             .file-return:not(:empty) {
+                                                            margin: 1em 0;
+                                                          }
+                                             .js .file-return {
+                                                            font-style: italic;
+                                                            font-size: .9em;
+                                                            font-weight: bold;
+                                                            }
+                                             .js .file-return:not(:empty):before {
+                                                       content: "Archivo Seleccionado: ";
+                                                       font-style: normal;
+                                                       font-weight: normal;
+                                                        }
+
+
+
+                                             /* .pruebas{
+                                                      float: right;
+                                                 } */
+
+
+                                           .input-file-container2 {
+                                              position: relative;
+                                              width: 225px;
+                                            } 
+                                            .js .input-file-trigger2 {
+                                              display: block;
+                                              padding: 2px 10px;
+                                              background: #39D2B4;
+                                              color: #fff;
+                                              font-size: 1em;
+                                              transition: all .4s;
+                                              cursor: pointer;
+                                             }
+                                            .js .input-file2 {
+                                              position: absolute;
+                                              top: 0; left: 0;
+                                              width: 225px;
+                                              opacity: 0;
+                                               padding: 14px 0;
+                                               cursor: pointer;
+                                             }
+                                            .js .input-file2:hover + .input-file-trigger2,
+                                            .js .input-file2:focus + .input-file-trigger2,
+                                            .js .input-file-trigger2:hover,
+                                            .js .input-file-trigger2:focus {
+                                             background: #34495E;
+                                             color: #39D2B4;
+                                             }
+
+                                            .file-return2 {
+                                              margin: 0;
+                                              padding-left: 10px;
+                                             
+                                                 }
+                                            .file-return2:not(:empty) {
+                                                   margin: 1em 0;
+                                                      }
+                                            .js .file-return2 {
+                                                font-style: italic;
+                                                font-size: .9em;
+                                                font-weight: bold;
+                                               }
+                                            .js .file-return2:not(:empty):before {
+                                                content: "Archivo Seleccionado: ";
+                                                font-style: normal;
+                                                font-weight: normal;
+                                                   }
+
+
+
+
+                                            .input-file-container3 {
+                                              position: relative;
+                                              width: 225px;
+                                              } 
+                                            .js .input-file-trigger3 {
+                                              display: block;
+                                              padding: 2px 10px;
+                                              background: #39D2B4;
+                                              color: #fff;
+                                              font-size: 1em;
+                                              transition: all .4s;
+                                              cursor: pointer;
+                                             }
+                                            .js .input-file3 {
+                                              position: absolute;
+                                              top: 0; left: 0;
+                                              width: 225px;
+                                              opacity: 0;
+                                               padding: 14px 0;
+                                               cursor: pointer;
+                                             }
+                                            .js .input-file3:hover + .input-file-trigger3,
+                                            .js .input-file3:focus + .input-file-trigger3,
+                                            .js .input-file-trigger3:hover,
+                                            .js .input-file-trigger3:focus {
+                                             background: #34495E;
+                                             color: #39D2B4;
+                                             }
+
+                                            .file-return3 {
+                                            margin: 0;
+                                               }
+                                            .file-return3:not(:empty) {
+                                            margin: 1em 0;
+                                            padding-left: 10px;
+                                                }
+                                            .js .file-return3 {
+                                              font-style: italic;
+                                              font-size: .9em;
+                                               font-weight: bold;
+                                                 }
+                                            .js .file-return3:not(:empty):before {
+                                              content: "Archivo Seleccionado: ";
+                                              font-style: normal;
+                                              font-weight: normal;
+                                              }

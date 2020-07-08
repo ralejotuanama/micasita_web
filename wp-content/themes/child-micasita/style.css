@@ -1,0 +1,208 @@
+/*
+Theme Name: micasita Child
+Description: Child theme for the micasita
+Author: GLOBPERU
+Template: micasita
+*/
+@import url('https://fonts.googleapis.com/css?family=Merriweather+Sans:400,700&display=swap');
+/**font-family: 'Merriweather Sans', sans-serif;**/
+
+#header, #small-nav, #side-header{
+  background: #ffffff;
+  background: -moz-linear-gradient(top, #F5F5F5 0%, #ffffff 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#F5F5F5 ), color-stop(100%,#ffffff));
+  background: -webkit-linear-gradient(top, #F5F5F5 0%,#ffffff 100%);
+  background: -o-linear-gradient(top, #F5F5F5 0%,#ffffff 100%);
+  background: -ms-linear-gradient(top, #F5F5F5 0%,#ffffff 100%);
+  background: linear-gradient(to bottom, #F5F5F5 0%,#ffffff 100%);
+}
+#nav ul ul, #sticky-nav ul ul, #wrapper .fusion-megamenu-wrapper .fusion-megamenu-holder .fusion-megamenu-submenu, #nav ul .login-box, #sticky-nav ul .login-box, #nav ul .cart-contents, #sticky-nav ul .cart-contents, #small-nav ul .login-box, #small-nav ul .cart-contents, #main-nav-search-form, #sticky-nav-search-form {
+  background-color: #FFFFFF;
+}
+#nav ul li > a, #sticky-nav ul li > a, .navigation li.current-menu-ancestor > a {
+  display: block;
+  /* height: 83px; */
+  /* line-height: 83px; */
+  border-top: 3px solid transparent;
+}
+#nav ul .current-menu-ancestor > a, .navigation li.current-menu-ancestor > a, #sticky-nav li.current-menu-ancestor > a, #nav ul .current_page_item > a, #nav ul .current-menu-item > a, #nav ul > .current-menu-parent > a, #nav ul ul, #wrapper .fusion-megamenu-wrapper .fusion-megamenu-holder, .navigation li.current-menu-ancestor > a, #nav ul li > a:hover, #sticky-nav ul .current_page_item > a, #sticky-nav ul .current-menu-item > a, #sticky-nav ul > .current-menu-parent > a, #sticky-nav ul ul, #sticky-nav li.current-menu-ancestor > a, .navigation li.current-menu-ancestor > a, #sticky-nav ul li > a:hover, #header-sticky .my-cart-link-active:after, .header-wrapper .my-cart-link-active:after, #side-header .my-cart-link-active:after {
+  color: #FFFFFF;
+  border-color: #a0ce4e;
+  background-color: #00AB69;
+}
+#nav ul li, #sticky-nav ul li {
+  /* padding-right: 45px; */
+  margin: 0 2px;
+}
+#nav ul li, #sticky-nav ul li {
+  float: left;
+  padding: 0;
+  margin: 0;
+}
+#nav ul li > a, #sticky-nav ul li > a, .navigation li.current-menu-ancestor > a {
+  display: block;
+  height: 83px;
+  line-height: 83px;
+  border-top: 0px solid transparent;
+}
+#nav ul li, #sticky-nav ul li {
+  padding-right: 0px;
+}
+#nav ul li, #sticky-nav ul li {
+  float: left;
+  padding: 0;
+  padding-bottom: 15px;
+  margin: 0 2px;
+}
+#nav.nav-holder .navigation > li > a {
+  -moz-box-sizing: content-box;
+  -webkit-box-sizing: content-box;
+  box-sizing: content-box;
+  padding: 8px 10px;
+  border-radius: 6px;
+}
+
+#nav ul ul, #sticky-nav ul ul {
+  position: absolute;
+  left: 0px;
+  width: 170px;
+  background: #edebeb;
+  z-index: 99996;
+  margin-top: 15px;
+  border-top: 0px solid #a0ce4e;
+}
+.page-title ul li:after {
+  content: '>';
+  color: #fff;
+  font-size: 13px;
+}
+.page-title ul {
+  display: table-cell;
+  vertical-align: middle;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 45%;
+  text-align: left;
+  padding-left: 3px;
+}
+.page-title ul, .page-title ul li, .page-title ul li a {
+  color: #FFFFFF;
+}
+.footer-area {
+ border-top: 0px solid #e9eaee; 
+  background: #363839;
+  padding: 43px 10px 40px;
+  color: #8c8989;
+  position: relative;
+  overflow: hidden;
+}
+.fusion-column.fusion-one-sixth, .fusion-column.fusion-five-sixth, .fusion-column.fusion-one-fifth, .fusion-column.fusion-two-fifth, .fusion-column.fusion-three-fifth, .fusion-column.fusion-four-fifth, .fusion-column.fusion-one-fourth, .fusion-column.fusion-three-fourth, .fusion-column.fusion-one-third, .fusion-column.fusion-two-third, .fusion-column.fusion-one-half {
+  position: relative;
+  float: left;
+  margin-right: 4%;
+ margin-bottom: 0px;
+}
+.wpcf7-form input[type="submit"], .comment-form input[type="submit"] {
+  width: auto;
+  font-weight: 100;
+}
+.wpcf7-form input[type="submit"] {
+  padding: 10px 25px;
+}
+.wpcf7-form .wpcf7-text, .wpcf7-form .wpcf7-quiz, .wpcf7-form .wpcf7-number, .wpcf7-form textarea, .wpcf7-form .wpcf7-captchar, .wpcf7-form .wpcf7-date {
+  width: 300px;
+  margin-right: 0;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -o-box-sizing: border-box;
+}
+.fusion-accordian .panel-title a .fa-fusion-box {
+  display: inline-block;
+  float: left;
+  margin-right: 17px;
+  margin-top: 3px;
+  width: 15px;
+  height: 15px;
+  border-radius: 20px;
+  background-color: #333;
+  font-size: 6px;
+  color: #fff;
+  text-align: center;
+  line-height: 14px;
+  font-family: 'IcoMoon';
+  -webkit-font-smoothing: subpixel-antialiased;
+}
+.fusion-accordian .panel-title a .fa-fusion-box:before {
+  font-family: 'IcoMoon';
+  content: "\e61d";
+  font-style: normal;
+  line-height: 16px;
+  font-size: 8px;
+}
+.fusion-tabs .nav-tabs > .active > .tab-link {
+  border: none;
+  border-top: 3px solid #a0ce4e;
+  background-color: #fff;
+  cursor: pointer;
+  border-radius: 5px 5px 0 0;
+}
+.paso{
+background-color: rgb(225, 244, 230);
+border-radius: 5px;
+}
+.fusion-tabs .nav-tabs {
+  display: block;
+  list-style: none outside none;
+  margin: 0;
+  padding: 0;
+  border: 0px solid #f1f2f2; */
+  border-bottom: none;
+  background-color: #fff;
+}
+.fusion-tabs.fusion-tabs-1 .nav-tabs li a {
+  border-top-color: #e8e8e8;
+  background-color: #e8e8e8;
+  border-radius: 5px 5px 0 0;
+}
+.fusion-tabs.fusion-tabs-1 .nav-tabs li a:hover {
+  background-color: #E8E8E8;
+  border-top-color: #E8E8E8;
+}
+.micasita{
+  float: right;
+}
+
+.clase-general{
+  width: 100%;
+  height: 54px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  }
+  #footer {
+  z-index: 1;
+  position: relative;
+  padding: 18px 10px 12px;
+  background: #282a2b;
+  border-top: 0px solid #4b4c4d; 
+}
+
+  .buscar {
+width: 200px;  float: right;margin-top: 7px;  margin-bottom: 7px;
+}
+
+
+  .redes {
+float: right;  margin-top: 5px;
+}
+.post-content h1, .post-content h2, .post-content h3, .post-content h4, .post-content h5, .post-content h6 {
+  font-family: 'MuseoSlab500Regular', arial, helvetica, sans-serif;
+  color: #333333;
+  font-weight: 600;
+}
+.post-content p {
+  margin: 0;
+  margin-bottom: 8px;
+}

@@ -1,0 +1,12 @@
+para probar conexion de oracle
+
+tnsping lm1_desa
+
+para que funciones cuando instalo en nueva instalacion
+
+instalar word
+
+instalar inputpro3039
+
+registrar OCX - Visual 6.0
+
