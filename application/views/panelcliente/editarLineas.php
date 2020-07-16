@@ -196,7 +196,10 @@
                         <!--fin tab1-->          
 
                         <!-- inicio tab2-->
-                        <div id="tab2" class="tab-pane" style="min-height: 300px">    
+                        <div id="tab2" class="tab-pane" style="min-height: 300px">  
+
+                        <p style="text-align:center;font-weight:bold;">SOLO SE DEBEN CARGAR ARCHIVOS CON EXTENSION .pfd </p>
+                  
                                 <!-- inicio div anexos-->
                                 <div class="span12" id="divAnexos" style="margin-left: 0">
                                     <table  border=1>
@@ -213,42 +216,32 @@ $cont1 = 0;
   $m = count($anexos);
   if(count($anexos)>0){
         foreach ($anexos as $a) {
-          $link = $a->url.$a->anexo;
-            echo '<tr><td style=text-align:center;>'.$a->idAnexos.'</td><td style=text-align:center;><div style="margin-left: 0" class="span"><a href="#modal-anexo" imagem="'.$a->idAnexos.'" link="'.$link.'" otro="'.$a->anexo.'" role="button" otro="'.$a->anexo.'" class="btn anexo" data-toggle="modal"><p>'.$a->anexo.'</p></a></div></td></tr>'; 
+          $link = str_replace(" ","_",$a->url.$a->anexo);
+            echo '<tr><td style=text-align:center;>'.$a->nombre_original.'</td><td style=text-align:center;><div style="margin-left: 0" class="span"><a href="#modal-anexo" imagem="'.$a->idAnexos.'" link="'.$link.'" otro="'.$a->anexo.'" role="button" otro="'.$a->anexo.'" class="btn anexo" data-toggle="modal"><p>'.$a->anexo.'</p></a></div></td></tr>'; 
              $cont1 ++;                                
      } 
                    if($cont1 == 1){
-                     echo '<tr><td style=text-align:center;>archivo</td><td><input  type="file" name="userfile2"  /></td></tr>'; 
-                     echo '<tr><td style=text-align:center;>archivo</td><td><input  type="file" name="userfile3"  /></td></tr>'; 
-                     echo '<tr><td style=text-align:center;>archivo</td><td><input  type="file" name="userfile4"  /></td></tr>';  
-                     echo '<tr><td style=text-align:center;>archivo</td><td><input  type="file" name="userfile5"  /></td></tr>'; 
-                     echo '<tr><td style=text-align:center;>archivo</td><td><input  type="file" name="userfile6"  /></td></tr>'; 
+                     echo '<tr><td style=text-align:center;>archivo linea2</td><td><input type="hidden" name="oculto2" id="oculto2" value="archivo linea2" /><input  type="file" name="userfile2"  /></td></tr>'; 
+                     echo '<tr><td style=text-align:center;>archivo linea3</td><td><input type="hidden" name="oculto3" id="oculto3" value="archivo linea3" /><input  type="file" name="userfile3"  /></td></tr>'; 
+                     echo '<tr><td style=text-align:center;>archivo linea4</td><td><input type="hidden" name="oculto4" id="oculto4" value="archivo linea4" /><input  type="file" name="userfile4"  /></td></tr>';  
+                    
                      }
                     elseif($cont1 == 2){
-                       echo '<tr><td style=text-align:center;>archivo</td><td><input  type="file" name="userfile3"  /></td></tr>'; 
-                       echo '<tr><td style=text-align:center;>archivo</td><td><input  type="file" name="userfile4"  /></td></tr>';  
-                       echo '<tr><td style=text-align:center;>archivo</td><td><input  type="file" name="userfile5"  /></td></tr>'; 
-                       echo '<tr><td style=text-align:center;>archivo</td><td><input  type="file" name="userfile6"  /></td></tr>'; 
+                       echo '<tr><td style=text-align:center;>archivo linea3</td><td><input type="hidden" name="oculto3" id="oculto3" value="archivo linea3" /><input  type="file" name="userfile3"  /></td></tr>'; 
+                       echo '<tr><td style=text-align:center;>archivo linea4</td><td><input type="hidden" name="oculto4" id="oculto4" value="archivo linea4" /><input  type="file" name="userfile4"  /></td></tr>';  
+                      
                      }
                      elseif($cont1 == 3){
-                      echo '<tr><td style=text-align:center;>archivo</td><td><input  type="file" name="userfile4"  /></td></tr>'; 
-                      echo '<tr><td style=text-align:center;>archivo</td><td><input  type="file" name="userfile5"  /></td></tr>';  
-                       echo '<tr><td style=text-align:center;>archivo</td><td><input  type="file" name="userfile6"  /></td></tr>'; 
+                      echo '<tr><td style=text-align:center;>archivo linea4</td><td><input type="hidden" name="oculto4" id="oculto4" value="archivo linea4" /><input  type="file" name="userfile4"  /></td></tr>'; 
+                     
                     }
-                    elseif($cont1 == 4){
-                      echo '<tr><td style=text-align:center;>archivo</td><td><input  type="file" name="userfile5"  /></td></tr>'; 
-                      echo '<tr><td style=text-align:center;>archivo</td><td><input  type="file" name="userfile6"  /></td></tr>'; 
-                    }
-                    elseif($cont1 == 5){
-                      echo '<tr><td style=text-align:center;>archivo</td><td><input  type="file" name="userfile6"  /></td></tr>'; 
-                    }
+                   
           }else{
-       echo '<tr><td style=text-align:center;>archivo</td><td><input  type="file" name="userfile1"  /></td></tr>'; 
-       echo '<tr><td style=text-align:center;>archivo</td><td><input  type="file" name="userfile2"  /></td></tr>';
-       echo '<tr><td style=text-align:center;>archivo</td><td><input  type="file" name="userfile3"  /></td></tr>'; 
-       echo '<tr><td style=text-align:center;>archivo</td><td><input  type="file" name="userfile4"  /></td></tr>';  
-       echo '<tr><td style=text-align:center;>archivo</td><td><input  type="file" name="userfile5"  /></td></tr>'; 
-       echo '<tr><td style=text-align:center;>archivo</td><td><input  type="file" name="userfile6"  /></td></tr>'; 
+       echo '<tr><td style=text-align:center;>archivo linea1</td><td><input type="hidden" name="oculto1" id="oculto1" value="archivo linea1" /><input  type="file" name="userfile1"  /></td></tr>'; 
+       echo '<tr><td style=text-align:center;>archivo linea2</td><td><input type="hidden" name="oculto2" id="oculto2" value="archivo linea2" /><input  type="file" name="userfile2"  /></td></tr>';
+       echo '<tr><td style=text-align:center;>archivo linea3</td><td><input type="hidden" name="oculto3" id="oculto3" value="archivo linea3" /><input  type="file" name="userfile3"  /></td></tr>'; 
+       echo '<tr><td style=text-align:center;>archivo linea4</td><td><input type="hidden" name="oculto4" id="oculto4" value="archivo linea4" /><input  type="file" name="userfile4"  /></td></tr>';  
+      
   }
 ?>
                                    </tbody> </table>
@@ -269,11 +262,11 @@ $cont1 = 0;
 
 
                         <!-- Modal visualizar anexo -->
-                        <div id="modal-anexo" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div id="modal-anexox" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                     <div class="modal-header">
                                          <button type="button" class="close" data-dismiss="modal" 
                                           aria-hidden="true">×</button>
-                                         <h3 id="myModalLabel">Visualizar Archivo Adjunto</h3>
+                                         <h3 id="myModalLabel">Archivo</h3>
                                    </div>
                                    <!--<div class="modal-body">-->
                                         <div class="span12" id="div-visualizar-anexo" style="text-align: center">
@@ -339,7 +332,8 @@ $cont1 = 0;
            var url = '<?php echo base_url(); ?>index.php/panelcliente/excluirAnexo/';
            //alert(url);
          //  $("#div-visualizar-anexo").html('<div>' +otro+ '</div>');
-         $("#div-visualizar-anexo").html('<iframe frameborder="0" src="'+link+'"></iframe>');
+         window.open(link, 'Nombre Ventana');
+         $("#div-visualizar-anexo").html('<iframe frameborder="0" src="'+link+'" allowfullscreen scrolling="si" ></iframe>');
            $("#excluir-anexo").attr('link', url+id);
            $("#download").attr('href', "<?php echo base_url(); ?>index.php/panelcliente/downloadanexo/"+id);
        });

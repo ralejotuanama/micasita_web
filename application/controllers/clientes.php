@@ -9,8 +9,6 @@ class Clientes extends CI_Controller {
             }
             $this->load->helper(array('codegen_helper'));
             $this->load->model('clientes_model','',TRUE);
-         /*  $this->load->model('os_model','',TRUE);*/
-            
             $this->data['menuClientes'] = 'clientes';
 	}	
 	
@@ -54,7 +52,7 @@ class Clientes extends CI_Controller {
         
 	    $this->data['results'] = $this->clientes_model->get('clientes','idClientes,nombreCliente,documento,telefono,celular,email,ruc,numero,barrio,ciudad,estado,referencia,estadocli','',$config['per_page'],$this->uri->segment(3));
            
-      /*  $this->data['anexos'] = $this->os_model->getAnexos($this->uri->segment(3));*/
+   
 
         $this->data['results3'] = $this->clientes_model->geta('lineas','idlinea,descripcion,fechainicio,fechafin,fecharegistro,estadolinea,idClientes','',$config['per_page'],$this->uri->segment(3));
         $this->data['view'] = 'clientes/clientes';
@@ -77,7 +75,7 @@ class Clientes extends CI_Controller {
 		
         $this->data['result'] = $this->clientes_model->getById_clientes_lineas($this->uri->segment(3));
         $this->data['anexos'] = $this->clientes_model->getAnexosfiltroslinea('1',$this->uri->segment(3));
-       
+        $this->data['anexos3'] = $this->clientes_model->getAnexosfiltroslinearpta('3',$this->uri->segment(3));
         $this->data['view'] = 'clientes/editarLineas';
         $this->load->view('tema/topo', $this->data);
     }
@@ -88,6 +86,7 @@ class Clientes extends CI_Controller {
      
         $this->data['result'] = $this->clientes_model->getSolicitudById_($this->uri->segment(3));
         $this->data['anexos'] = $this->clientes_model->getAnexosfiltroslinea('1',$this->uri->segment(3));
+      
 
           $dataInicial = $this->input->post('finicio');
           $dataFinal = $this->input->post('ffinal');
@@ -104,7 +103,7 @@ class Clientes extends CI_Controller {
           
            $datax = array(
                  'estadolinea' => $this->input->post('esta'),
-                //'estadolinea' => $this->input->post('esta')
+               
              'fechainicio' => $dataInicial,
               'fechafin' => $dataFinal ,
               'comentario' => $this->input->post('comentario')
@@ -229,6 +228,30 @@ class Clientes extends CI_Controller {
             } 
 
 
+            if(!empty($_FILES['userfile20']['name'])){
+                $nombreCompleto          = $_FILES['userfile20']['name'];
+                $config['upload_path']   = '././assets/anexos3/';
+                $config['allowed_types'] = '*';
+                $config['max_size']      = 2000;
+                $config['max_width']     = 0;
+                $config['max_height']    = 0;
+                $config['file_name']     = $nombreCompleto;
+                 $this->load->library('upload', $config);
+
+                  if (!$this->upload->do_upload('userfile20')) {
+
+                  $data['uploadError'] = $this->upload->display_errors();
+                  echo $this->upload->display_errors();
+                  return;
+             }
+
+              $data['uploadSuccess'] = $this->upload->data();
+              
+              $this->clientes_model->anexarrptalinea( $_FILES['userfile20']['name'] ,base_url().'assets/anexos3/','thumb_'.$_FILES['userfile20']['name'],realpath('./assets/anexos3/'),'3',$this->input->post('li'));
+        
+            } 
+
+
             $this->session->set_flashdata('success','linea modificada con éxito!');
              redirect(base_url() . 'index.php/clientes');
           } else {
@@ -273,7 +296,7 @@ class Clientes extends CI_Controller {
             );
 
             if ($this->clientes_model->add('clientes', $data) == TRUE) {
-                $this->session->set_flashdata('success','Cliente agregado con éxito!');
+                $this->session->set_flashdata('success',correcto);
                 redirect(base_url() . 'index.php/clientes/adicionar/');
             } else {
                 $this->data['custom_error'] = '<div class="form_error"><p>Ha ocurrido un error.</p></div>';
@@ -311,7 +334,7 @@ class Clientes extends CI_Controller {
             );
 
             if ($this->clientes_model->add('clientes', $data) == TRUE) {
-                $this->session->set_flashdata('success','Cliente agregado con éxito!');
+                $this->session->set_flashdata('success',correcto);
                 redirect(base_url() . 'index.php/os/adicionar/');
             } else {
                 $this->data['custom_error'] = '<div class="form_error"><p>Ha ocurrido un error.</p></div>';
@@ -349,7 +372,7 @@ class Clientes extends CI_Controller {
             );
 
             if ($this->clientes_model->add('clientes', $data) == TRUE) {
-                $this->session->set_flashdata('success','Cliente agregado con éxito!');
+                $this->session->set_flashdata('success',correcto);
                 redirect(base_url() . 'index.php/vendas/adicionar/');
             } else {
                 $this->data['custom_error'] = '<div class="form_error"><p>Ha ocurrido un error.</p></div>';
@@ -400,7 +423,7 @@ class Clientes extends CI_Controller {
         $this->data['result'] = $this->clientes_model->getById($this->uri->segment(3));
         $this->data['view'] = 'clientes/editarCliente';
 
-      /*  $this->data['anexos'] = $this->os_model->getAnexos($this->uri->segment(3));*/
+      
         $this->load->view('tema/topo', $this->data);
 
     }
@@ -491,15 +514,7 @@ class Clientes extends CI_Controller {
 
      
      function SolicitudesVinculadas($id = null){
-        
-        /*
-        $this->data['result'] = $this->clientes_model->getById_clientes_lineas($this->uri->segment(3));
-        $this->data['anexos'] = $this->clientes_model->getAnexosfiltroslinea('1',$this->uri->segment(3));
-       
-        $this->data['view'] = 'clientes/visualizarLineas';
-        $this->load->view('tema/topo',$this->data);*/
-
-
+  
 	
         $this->data['result4'] = $this->clientes_model->getSolicitudesVinculadasById($this->uri->segment(3));
         
@@ -511,11 +526,12 @@ class Clientes extends CI_Controller {
 
     public function editarSolicitudes($id = null){
         
-       
-       // $this->data['result'] = $this->Conecte_model->getById_clientes_lineas($this->uri->segment(3));
-       // $this->data['anexos'] = $this->Conecte_model->getAnexosfiltroslinea($this->session->userdata('id'),'1',$this->uri->segment(3));
-       $this->data['result'] = $this->clientes_model->getById_clientes_solicitudes($this->uri->segment(3));
-       // $this->data['anexos'] = $this->clientes_model->getAnexosfiltroslinea('1',$this->uri->segment(3));
+  
+       $this->data['result'] = $this->clientes_model->getById_clientes_solicitudes($id);
+        $abc =  $this->data['result'] = $this->clientes_model->getById_clientes_solicitudes($id);
+
+
+        $this->data['anexos3'] = $this->clientes_model->getAnexosfiltrossolicitudrpta('4',$this->uri->segment(3));
         
         $this->data['view'] = 'clientes/editarSolicitudes';
         $this->load->view('tema/topo', $this->data);
@@ -525,11 +541,11 @@ class Clientes extends CI_Controller {
 
     public function editarsolicitudbd($id = null){
         $this->data['result'] = $this->clientes_model->getSolicitudById_($this->uri->segment(3));
-      //  $this->data['anexos'] = $this->clientes_model->getAnexosfiltroslinea('1',$this->uri->segment(3));
+     
 
           $dataInicial = $this->input->post('finicio');
           $dataFinal = $this->input->post('ffinal');
-        //  $idli = $this->input->post('li');
+ 
 
           $dataInicial = explode('/', $dataInicial);
           $dataInicial = $dataInicial[2].'-'.$dataInicial[1].'-'.$dataInicial[0];
@@ -540,11 +556,42 @@ class Clientes extends CI_Controller {
            $datax = array(
                  'estadosolicitud' => $this->input->post('esta'),
                  'fechainicio' => $dataInicial,
-                 'fechafin' => $dataFinal 
+                 'fechafin' => $dataFinal ,
+                 'comentario' => $this->input->post('comentario')
               );
 
+
+
+
+
+
           if ($this->clientes_model->edit('solicitudes', $datax, 'idsolicitud', $this->input->post('idsolult')) == TRUE) {
-            $this->session->set_flashdata('success','linea modificada con éxito!');
+
+            if(!empty($_FILES['userfile21']['name'])){
+                $nombreCompleto          = $_FILES['userfile21']['name'];
+                $config['upload_path']   = '././assets/anexos4/';
+                $config['allowed_types'] = '*';
+                $config['max_size']      = 2000;
+                $config['max_width']     = 0;
+                $config['max_height']    = 0;
+                $config['file_name']     = $nombreCompleto;
+                $this->load->library('upload', $config);
+
+                 if (!$this->upload->do_upload('userfile21')) {
+  
+                  $data['uploadError'] = $this->upload->display_errors();
+                  echo $this->upload->display_errors();
+                  return;
+                 }
+
+                 $data['uploadSuccess'] = $this->upload->data();
+
+                  $this->clientes_model->anexarrptasolicitud( $_FILES['userfile21']['name'] ,base_url().'assets/anexos4/','thumb_'.$_FILES['userfile21']['name'],realpath('./assets/anexos4/'),'4',$this->input->post('solicitudadm'));
+    } 
+
+
+
+            $this->session->set_flashdata('success','solicitud vinculada modificada con éxito!');
              redirect(base_url() . 'index.php/clientes');
           } else {
                $data['custom_error'] = '<div class="form_error"><p>A ocurrido un error.</p></div>';

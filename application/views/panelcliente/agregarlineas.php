@@ -17,7 +17,7 @@
                     <div class="widget-content tab-content">
 
                       <div id="tab1" class="tab-pane active" style="min-height: 300px">
-                      <!--<form action="<?php echo base_url()?>index.php/panelcliente/guardar_linea" id="" method="post">-->
+                     
 
                           <div class="span12" style="padding: 0%; margin-left: 0 ">
 
@@ -207,7 +207,7 @@
                             <div class="span12" style="padding: 1%; margin-left: 0">
 
                            
-                               
+                               <p style="text-align:center;font-weight:bold;">SOLO SE DEBEN CARGAR ARCHIVOS CON EXTENSION .pfd</p>
                 
                             <table class="table table-bordered ">
 
@@ -224,29 +224,30 @@
 
                                 <tr>
                                     <td style="text-align:center;">descripcion de archivo1</td>
-                                    <td style="text-align:center;"> <input type="file" class="" name="userfile1" id="uploadPDF" size="20" style="line-height:0px;"  /> <input type="button" value="ver" onclick="PreviewImage();" data-toggle="modal" data-target="#myModal" class="btn btn-primary" /></td>
+                                    <td style="text-align:center;"> <input type="hidden" name="oculto1" id="oculto1" value="archivo linea1" /><input type="file" class="" name="userfile1" id="uploadPDF" size="20" style="line-height:0px;"  /> <input type="button" value="ver" onclick="PreviewImage();" data-toggle="modal" data-target="#myModalx" class="btn btn-primary" /></td>
 
                               </tr>
 
                                <tr>
                                     <td style="text-align:center;">descripcion de archivo2</td>
-                                    <td style="text-align:center;"> <input type="file" class="" name="userfile2"  size="20" id="uploadPDF2" style="line-height:0px;"  /> <input type="button" value="ver" onclick="PreviewImage2();" data-toggle="modal" data-target="#myModal2" class="btn btn-primary" /></td>
+                                    <td style="text-align:center;"><input type="hidden" name="oculto2" id="oculto2" value="archivo linea2" /> <input type="file" class="" name="userfile2"  size="20" id="uploadPDF2" style="line-height:0px;"  /> <input type="button" value="ver" onclick="PreviewImage2();" data-toggle="modal" data-target="#myModal2x" class="btn btn-primary" /></td>
 
                               </tr>
 
 
                                <tr>
                                     <td style="text-align:center;">descripcion de archivo3</td>
-                                    <td style="text-align:center;"> <input type="file" class="" name="userfile3"  size="20"  style="line-height:0px;" id="uploadPDF3" /> <input type="button" value="ver" onclick="PreviewImage3();" data-toggle="modal" data-target="#myModal3" class="btn btn-primary" /></td>
+                                    <td style="text-align:center;"><input type="hidden" name="oculto3" id="oculto3" value="archivo linea3" /> <input type="file" class="" name="userfile3"  size="20"  style="line-height:0px;" id="uploadPDF3" /> <input type="button" value="ver" onclick="PreviewImage3();" data-toggle="modal" data-target="#myModal3x" class="btn btn-primary" /></td>
 
                                </tr>
 
 
                                <tr>
                                     <td style="text-align:center;">descripcion de archivo4</td>
-                                    <td style="text-align:center;"> <input type="file" class="" name="userfile4"  size="20"  style="line-height:0px;" id="uploadPDF4" /> <input type="button" value="ver" onclick="PreviewImage4();" data-toggle="modal" data-target="#myModal4" class="btn btn-primary" /></td>
+                                    <td style="text-align:center;"><input type="hidden" name="oculto4" id="oculto4" value="archivo linea4" /> <input type="file" class="" name="userfile4"  size="20"  style="line-height:0px;" id="uploadPDF4" /> <input type="button" value="ver" onclick="PreviewImage4();" data-toggle="modal" data-target="#myModal4x" class="btn btn-primary" /></td>
 
                               </tr>
+                             
                             </tbody>
 
                            </table>  
@@ -267,34 +268,22 @@
 
 
 
-                   <!-- <input id="uploadPDF" type="file" name="myPDF"/>&nbsp;-->
-                     
-                       <!--  <div style="clear:both">
-                                <iframe id="viewer" frameborder="0" scrolling="no" width="300" height="400"></iframe>
-                         </div>
-                         <div style="clear:both">
-                                <iframe id="viewer2" frameborder="0" scrolling="no" width="300" height="400"></iframe>
-                         </div>-->
      </div>
 </div>
 
 
-<!-- Button trigger modal -->
-<!--
-<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
-  Launch demo modal
-</button>-->
+
 
 <!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Archivo 1</h4>
-      </div>
-      <div class="modal-body">
-      <iframe id="viewer" frameborder="0" scrolling="no" ></iframe>
+    <div class="modal-content" >
+  
+      <div class="modal-body" style="text-align:center;">
+     
+           <div class="embed-responsive embed-responsive-16by9">
+             <iframe class="embed-responsive-item" id="viewer" allowfullscreen scrolling="si" style="zoom: 1.5;"></iframe>
+          </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -311,8 +300,8 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="myModalLabel">Archivo 2</h4>
       </div>
-      <div class="modal-body">
-      <iframe id="viewer2" frameborder="0" scrolling="no"   ></iframe>
+      <div class="modal-body" style="text-align:center;">
+      <iframe id="viewer2" frameborder="0" scrolling="si"  ></iframe>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -330,8 +319,8 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="myModalLabel">Archivo 3</h4>
       </div>
-      <div class="modal-body">
-      <iframe id="viewer3" frameborder="0" scrolling="no"  ></iframe>
+      <div class="modal-body" style="text-align:center;">
+      <iframe id="viewer3" frameborder="0" scrolling="si"  ></iframe>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -348,8 +337,8 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="myModalLabel">Archivo 4</h4>
       </div>
-      <div class="modal-body">
-      <iframe id="viewer4" frameborder="0" scrolling="no"   ></iframe>
+      <div class="modal-body" style="text-align:center;">
+      <iframe id="viewer4" frameborder="0" scrolling="si"  ></iframe>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -387,18 +376,23 @@
        <script type="text/javascript">
             function PreviewImage() {
                 pdffile=document.getElementById("uploadPDF").files[0];
+               // alert(document.getElementById("uploadPDF"));
                 pdffile_url=URL.createObjectURL(pdffile);
+               // alert(pdffile_url);
                 $('#viewer').attr('src',pdffile_url);
+                window.open(pdffile_url,"Nombre ventana");
             }
             function PreviewImage2() {
                 pdffile=document.getElementById("uploadPDF2").files[0];
                pdffile_url=URL.createObjectURL(pdffile);
                 $('#viewer2').attr('src',pdffile_url);
+                window.open(pdffile_url,"Nombre ventana");
             }
             function PreviewImage3() {
                 pdffile=document.getElementById("uploadPDF3").files[0];
                 pdffile_url=URL.createObjectURL(pdffile);
                 $('#viewer3').attr('src',pdffile_url);
+                window.open(pdffile_url,"Nombre ventana");
             }
             function PreviewImage4() {
                 pdffile=document.getElementById("uploadPDF4").files[0];
@@ -406,6 +400,7 @@
                //video.srcObject=stream;
                //srcObject=stream;
                 $('#viewer4').attr('src',pdffile_url);
+                window.open(pdffile_url,"Nombre ventana");
             }
         </script>
 

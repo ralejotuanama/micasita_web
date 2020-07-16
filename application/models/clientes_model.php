@@ -52,7 +52,7 @@ class Clientes_model extends CI_Model {
 
 
     public function getById_clientes_solicitudes($id){
-        $this->db->select('clientes.*,solicitudes.nombre,solicitudes.idsolicitud as so , solicitudes.fechainicio, solicitudes.fechafin, solicitudes.estadosolicitud');
+        $this->db->select('clientes.*,solicitudes.nombre,solicitudes.idsolicitud as so , solicitudes.fechainicio, solicitudes.fechafin, solicitudes.estadosolicitud, solicitudes.comentario');
 		$this->db->from('clientes');
 		$this->db->join('solicitudes', 'clientes.idClientes = solicitudes.idClientes');
         $this->db->where('idsolicitud',$id);
@@ -70,12 +70,28 @@ class Clientes_model extends CI_Model {
 
     public function getAnexosfiltroslinea($tipo,$codlinea){ 
 
+      
+        $this->db->where('os_id', $tipo);
+        $this->db->where('idlinea', $codlinea);
+        return $this->db->get('anexos')->result(); 
+    }
+
+    public function getAnexosfiltroslinearpta($tipo,$codlinea){ 
+
         
         $this->db->where('os_id', $tipo);
         $this->db->where('idlinea', $codlinea);
         return $this->db->get('anexos')->result(); 
     }
 
+    public function getAnexosfiltrossolicitudrpta($tipo,$codlinea){ 
+
+        
+        $this->db->where('os_id', $tipo);
+        $this->db->where('idsolicitud', $codlinea);
+        return $this->db->get('anexos')->result(); 
+    }
+    
     public function getSolicitudById_($id){
         $this->db->where('idsolicitud',$id);
         return $this->db->get('solicitudes')->row();
@@ -89,6 +105,29 @@ class Clientes_model extends CI_Model {
       
         $this->db->set('os_id',$tipo);
         $this->db->set('idlinea',$codlinea);
+        return $this->db->insert('anexos');
+    }
+
+
+    public function anexarrptalinea( $anexo, $url, $thumb, $path,$tipo,$codlinea){  
+        $this->db->set('anexo',$anexo);
+        $this->db->set('url',$url);
+        $this->db->set('thumb',$thumb);
+        $this->db->set('path',$path);
+        $this->db->set('os_id',$tipo);
+        $this->db->set('idlinea',$codlinea);
+        return $this->db->insert('anexos');
+    }
+
+
+
+    public function anexarrptasolicitud( $anexo, $url, $thumb, $path,$tipo,$codsolicitud){  
+        $this->db->set('anexo',$anexo);
+        $this->db->set('url',$url);
+        $this->db->set('thumb',$thumb);
+        $this->db->set('path',$path);
+        $this->db->set('os_id',$tipo);
+        $this->db->set('idsolicitud',$codsolicitud);
         return $this->db->insert('anexos');
     }
 

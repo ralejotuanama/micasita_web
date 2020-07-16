@@ -311,7 +311,7 @@ class Conecte_model extends CI_Model {
 
 
     public function getById_clientes_lineas($id){
-        $this->db->select('clientes.*,lineas.descripcion,idlinea');
+        $this->db->select('clientes.*,lineas.descripcion,idlinea,fechainicio,fechafin,estadolinea,comentario');
 		$this->db->from('clientes');
 		$this->db->join('lineas', 'clientes.idClientes = lineas.idClientes');
         $this->db->where('idlinea',$id);
@@ -333,7 +333,7 @@ class Conecte_model extends CI_Model {
         return $this->db->get('lineas')->row();
     }
 
-    public function anexarsolicitud($id, $anexo, $url, $thumb, $path,$tipo,$codsolicitud){  
+    public function anexarsolicitud($id, $anexo, $url, $thumb, $path,$tipo,$codsolicitud,$nombreoriginal){  
         $this->db->set('anexo',$anexo);
         $this->db->set('url',$url);
         $this->db->set('thumb',$thumb);
@@ -341,10 +341,11 @@ class Conecte_model extends CI_Model {
         $this->db->set('idClientes',$id);
         $this->db->set('os_id',$tipo);
         $this->db->set('idsolicitud',$codsolicitud);
+        $this->db->set('nombre_original',$nombreoriginal);
         return $this->db->insert('anexos');
     }
 
-    public function anexarlinea($id, $anexo, $url, $thumb, $path,$tipo,$codlinea){  
+    public function anexarlinea($id, $anexo, $url, $thumb, $path,$tipo,$codlinea,$nombreoriginal){  
         $this->db->set('anexo',$anexo);
         $this->db->set('url',$url);
         $this->db->set('thumb',$thumb);
@@ -352,6 +353,7 @@ class Conecte_model extends CI_Model {
         $this->db->set('idClientes',$id);
         $this->db->set('os_id',$tipo);
         $this->db->set('idlinea',$codlinea);
+        $this->db->set('nombre_original',$nombreoriginal);
         return $this->db->insert('anexos');
     }
 
@@ -380,6 +382,28 @@ class Conecte_model extends CI_Model {
         $this->db->where('idlinea', $codlinea);
         return $this->db->get('anexos')->result(); 
     }
+
+
+    public function getAnexosfiltroslinearpta($os,$tipo,$codlinea){ 
+
+        
+        $this->db->where('os_id', $tipo);
+        $this->db->where('idlinea', $codlinea);
+        return $this->db->get('anexos')->result(); 
+        
+    }
+
+
+    public function getAnexosfiltrossolicitudrpta($os,$tipo,$codlinea){ 
+
+        
+        $this->db->where('os_id', $tipo);
+        $this->db->where('idsolicitud', $codlinea);
+        return $this->db->get('anexos')->result(); 
+        
+    }
+
+    
 
     public function guardarsolicitud($nombre,$id)
     {

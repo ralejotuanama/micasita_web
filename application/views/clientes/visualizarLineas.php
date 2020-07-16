@@ -236,14 +236,14 @@
                                         }
                                         else{
                                             $thumb = base_url().'assets/anexos/thumbs/'.$a->thumb;
-                                            $link = $a->url.$a->anexo;
+                                            $link = str_replace(" ","_",$a->url.$a->anexo);
                                         }
                                         if($cont == $flag){
-                                            echo '<tr><td>'.$a->anexo.'</td><td><div style="margin-left: 0" class="span"><a href="#modal-anexo" imagem="'.$a->idAnexos.'" link="'.$link.'" role="button" otro="'.$a->anexo.'" class="btn anexo" data-toggle="modal"><p>'.$a->anexo.'</p></a></div><br></td></tr>'; 
+                                            echo '<tr><td>'.$a->nombre_original.'</td><td><div style="margin-left: 0" class="span"><a href="#modal-anexo" imagem="'.$a->idAnexos.'" link="'.$link.'" role="button" otro="'.$a->anexo.'" class="btn anexo" data-toggle="modal"><p>'.$a->anexo.'</p></a></div><br></td></tr>'; 
                                             $flag += 4;
                                          }
                                          else{
-                                            echo '<tr><td>'.$a->anexo.'</td><td><div class="span"><a href="#modal-anexo" imagem="'.$a->idAnexos.'" link="'.$link.'" role="button" otro="'.$a->anexo.'" class="btn anexo" data-toggle="modal"><p>'.$a->anexo.'</p></a></div><br></td></tr>'; 
+                                            echo '<tr><td>'.$a->nombre_original.'</td><td><div class="span"><a href="#modal-anexo" imagem="'.$a->idAnexos.'" link="'.$link.'" role="button" otro="'.$a->anexo.'" class="btn anexo" data-toggle="modal"><p>'.$a->anexo.'</p></a></div><br></td></tr>'; 
                                          }
                                          $cont ++;
                                     } ?>
@@ -271,22 +271,25 @@
 </div>
 
                         <!-- Modal visualizar anexo -->
-                        <div id="modal-anexo" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h3 id="myModalLabel">Visualizar Archivo Adjunto</h3>
-  </div>
-  <div class="modal-body">
-    <div class="span12" id="div-visualizar-anexo" style="text-align: center">
-        <div class='progress progress-info progress-striped active'><div class='bar' style='width: 100%'></div></div>
-    </div>
-  </div>
-  <div class="modal-footer">
-    <button class="btn" data-dismiss="modal" aria-hidden="true">Cerrar</button>
-   <!-- <a href="" id-imagem="" class="btn btn-inverse" id="download">Download</a>
-    <a href="" link="" class="btn btn-danger" id="excluir-anexo">Eliminar Archivo Adjunto</a>-->
-  </div>
-</div>
+                       <!-- <div id="modal-anexo" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">-->
+                              <!--<div class="modal-header">
+                                 <button type="button" class="close" data-dismiss="modal" 
+                                 aria-hidden="true">×</button>
+                                 <h3 id="myModalLabel">Visualizar Archivo Adjunto</h3>
+                              </div>-->
+                              <!--<div class="modal-body">-->
+                                     <!--<div class="span12" id="div-visualizar-anexo" style="text-align: center">
+                                        <div class='progress progress-info progress-striped active'>
+                                            <div class='bar' style='width: 100%'></div>
+                                        </div>
+                                     </div>-->
+                              <!-- </div>-->
+                              <!-- <div class="modal-footer">
+                                     <button class="btn" data-dismiss="modal" aria-hidden="true">Cerrar</button>-->
+                                 <!-- <a href="" id-imagem="" class="btn btn-inverse" id="download">Download</a>
+                                  <a href="" link="" class="btn btn-danger" id="excluir-anexo">Eliminar Archivo Adjunto</a>-->
+                             <!-- </div>
+                         </div>-->
 
 <script type="text/javascript">
 
@@ -344,7 +347,10 @@ $(document).ready(function(){
            var id = $(this).attr('imagem');
            var otro = $(this).attr('otro');
            var url = '<?php echo base_url(); ?>os/excluirAnexo/';
-           $("#div-visualizar-anexo").html('<div>'+otro+'</div>');
+         /*  $("#div-visualizar-anexo").html('<div>'+otro+'</div>');*/
+          
+         window.open(link, 'Nombre Ventana');
+          // $("#div-visualizar-anexo").html('<iframe frameborder="0" src="'+link+'" style="zoom: 1.50;"></iframe>');
            $("#excluir-anexo").attr('link', url+id);
 
            $("#download").attr('href', "<?php echo base_url(); ?>index.php/os/downloadanexo/"+id);

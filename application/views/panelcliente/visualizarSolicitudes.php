@@ -58,15 +58,15 @@
                                         }
                                         else{
                                             $thumb = base_url().'assets/anexos2/'.$a->thumb;
-                                            $link = $a->url.$a->anexo;
+                                            $link = str_replace(" ","_",$a->url.$a->anexo);
                                         }
 
                                         if($cont == $flag){
-                                           echo '<tr><td style=text-align:center;>'.$a->anexo.'</td><td style=text-align:center;><div style="margin-left: 0" class="span"><a href="#modal-anexo" imagem="'.$a->idAnexos.'" link="'.$link.'" otro="'.$a->anexo.'" role="button" class="btn anexo" data-toggle="modal"><p>'.$a->anexo.'</p></a></div></td></tr>'; 
+                                           echo '<tr><td style=text-align:center;>'.$a->nombre_original.'</td><td style=text-align:center;><div style="margin-left: 0" class="span"><a href="#modal-anexo" imagem="'.$a->idAnexos.'" link="'.$link.'" otro="'.$a->anexo.'" role="button" class="btn anexo" data-toggle="modal"><p>'.$a->anexo.'</p></a></div></td></tr>'; 
                                            $flag += 4;
                                         }
                                         else{
-                                           echo '<tr><td style=text-align:center;>'.$a->anexo.'</td><td style=text-align:center;><div class="span"><a href="#modal-anexo" imagem="'.$a->idAnexos.'" link="'.$link.'" otro="'.$a->anexo.'" role="button" class="btn anexo" data-toggle="modal"><p>'.$a->anexo.'</p></a></div></td></tr>'; 
+                                           echo '<tr><td style=text-align:center;>'.$a->nombre_original.'</td><td style=text-align:center;><div class="span"><a href="#modal-anexo" imagem="'.$a->idAnexos.'" link="'.$link.'" otro="'.$a->anexo.'" role="button" class="btn anexo" data-toggle="modal"><p>'.$a->anexo.'</p></a></div></td></tr>'; 
                                         }
                                         $cont ++;
                                     } ?>
@@ -98,16 +98,39 @@
                                             <input id="correo2" readonly  type="text" class="span12" name="correo2" value="19/11/2020"  />
                                         </div>          
                             </div>
-                            <div class="span12" style="padding: 0%; margin-left: 0">                                            
+                           <div class="span12" style="padding: 0%; margin-left: 0">                                            
                                         <div class="span6"> 
-                                        <label for="">Adjuntar Archivo</label>
-                                        <input type="file" class="span12" name="userfile[]" multiple="multiple" size="20" />
+                                        <!--<label for="">Adjuntar Archivo</label>
+                                        <input type="file" class="span12" name="userfile[]" multiple="multiple" size="20" />-->
+
+                                        <?php 
+                                    $cont = 1;
+                                    $flag = 5;
+                                    foreach ($anexos3 as $a) {
+
+                                        if($a->thumb == null){
+                                            $thumb = base_url().'assets/img/icon-file.png';
+                                            $link = base_url().'assets/img/icon-file.png';
+                                        }
+                                        else{
+                                            $thumb = base_url().'assets/anexos/thumbs/'.$a->thumb;
+                                            $link = str_replace(" ","_",$a->url.$a->anexo);
+                                        }
+                                        if($cont == $flag){
+                                            echo '<tr><td>'.$a->nombre_original.'</td><td><div style="margin-left: 0" class="span"><a href="#modal-anexo" imagem="'.$a->idAnexos.'" link="'.$link.'" role="button" otro="'.$a->anexo.'" class="btn anexo" data-toggle="modal"><p>'.$a->anexo.'</p></a></div><br></td></tr>'; 
+                                            $flag += 4;
+                                         }
+                                         else{
+                                            echo '<tr><td>'.$a->nombre_original.'</td><td><div class="span"><a href="#modal-anexo" imagem="'.$a->idAnexos.'" link="'.$link.'" role="button" otro="'.$a->anexo.'" class="btn anexo" data-toggle="modal"><p>'.$a->anexo.'</p></a></div><br></td></tr>'; 
+                                         }
+                                         $cont ++;
+                                    } ?>
                                            </div>         
                             </div>
                             <div class="span12" style="padding: 0%; margin-left: 0">                                             
                                         <div class="span12">
                                         <label for="correo2">Comentarios:</label>
-                                        <textarea readonly class="span12" name="comentarios" id="comentarios" cols="50" rows="5">Aquí iran los comentarios </textarea>
+                                        <textarea readonly class="span12" name="comentarios" id="comentarios" cols="50" rows="5"><?php echo  $result->comentario; ?></textarea>
                                             </div>          
                             </div>
                             <a href="http://localhost:8082/micasita_demo/index.php/panelcliente/conta" id="" class="btn btn-primary"><i class="icon-arrow-left"></i> Volver</a>
@@ -125,12 +148,12 @@
 
 
  <!-- Modal visualizar anexo -->
-           <div id="modal-anexo" class="modal hide fade" tabindex="-1" role="dialog"
+           <div id="modal-anexox" class="modal hide fade" tabindex="-1" role="dialog"
             aria-labelledby="myModalLabel" aria-hidden="true">
-                  <div class="modal-header">
+                 <!-- <div class="modal-header">
                       <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                      <h3 id="myModalLabel">Visualizar Archivo Adjunto</h3>
-                  </div>
+                  </div>-->
                   <!--<div class="modal-body"  style="margin-bottom:20px;">-->
                      <div class="span12" id="div-visualizar-anexo" style="text-align: center">
                          <div class='progress progress-info progress-striped active'>
@@ -199,9 +222,9 @@ $(document).ready(function(){
            var id = $(this).attr('imagem');
            var otro = $(this).attr('otro');
            var url = '<?php echo base_url(); ?>os/excluirAnexo/';
-       
+           window.open(link, 'Nombre Ventana');
         /* $("#div-visualizar-anexo").html('<div>'+otro+'</div>');*/
-        $("#div-visualizar-anexo").html('<iframe frameborder="0" src="'+link+'"></iframe>');
+          // $("#div-visualizar-anexo").html('<iframe frameborder="0" src="'+link+'" allowfullscreen scrolling="si" style="zoom: 1.50;"></iframe>');
            $("#excluir-anexo").attr('link', url+id);
 
            $("#download").attr('href', "<?php echo base_url(); ?>index.php/os/downloadanexo/"+id);

@@ -2,7 +2,11 @@
 <script type="text/javascript" src="<?php echo base_url()?>js/jquery-ui/js/jquery-ui-1.9.2.custom.js"></script>
 <script type="text/javascript" src="<?php echo base_url()?>js/jquery.validate.js"></script>
 
+<!-- inicio div row-fluid -->
 <div class="row-fluid" style="margin-top:0">
+    
+    
+    <!-- inicio div span12 -->
     <div class="span12" >
      
 
@@ -13,24 +17,23 @@
                                 <ul class="nav nav-tabs">
                                      <li class="active"><a data-toggle="tab" href="#tab1">Datos clientes</a></li>
                                      <li class=""><a data-toggle="tab" href="#tab2">Archivos Adjuntos</a></li>
+                                     <li class=""><a data-toggle="tab" href="#tab3">Resultados</a></li>
                                 </ul>
                       </div>
                              
-                      
+                      <!-- inicio div widget-content -->
                     <div class="widget-content tab-content">
 
+                      <!-- inicio div tab1 -->
                       <div id="tab1" class="tab-pane active" style="min-height: 300px">
    
-
-                          <div class="span12" style="padding: 0%; margin-left: 0 ">
-                         
-                                                                                                                          
+                          <!-- inicio div span12 -->
+                          <div class="span12" style="padding: 0%; margin-left: 0">                                                                                       
                                   <div class="span3">
                                       <label for="tipodocumento" style="font-size:12px;margin-right:125px;">Tipo Documento:<span class="required"></span></label>
                                             <select class="" disabled name="tipodocumento" id="tipodocumento" value="">
                                                 <option  <?php if(trim($result->tipodocumento) == 'RUC'){echo 'selected';} ?>  value="RUC">RUC</option>
-                                                <option <?php if(trim($result->tipodocumento) == 'DNI'){echo 'selected';} ?> value="DNI">DNI</option>
-                                               
+                                                <option <?php if(trim($result->tipodocumento) == 'DNI'){echo 'selected';} ?> value="DNI">DNI</option> 
                                             </select>
                                  </div>
 
@@ -39,8 +42,10 @@
                                    <input id="razonsocial" readonly  type="text" class="span12" name="razonsocial" value="<?php  echo $result->documento ?>"  />
                               </div>
                                                                                                                                                                              
-                         </div>       
+                         </div>   
+                          <!--fin div span12 -->    
 
+                                <!-- inicio div span12 -->
                               <div class="span12" style="padding: 0%; margin-left: 0 ">
                                                                                                                           
                                     <div class="span6">
@@ -49,8 +54,9 @@
                                     </div>
                                                                                        
                                </div>                
+                                 <!--fin div span12 -->   
 
-
+                                 <!-- inicio div span12 -->
                                 <div class="span12" style="padding: 0%; margin-left: 0">
                                                                                 
                                         <div class="span2">
@@ -69,25 +75,23 @@
                                             <input id="telefono3" readonly type="text" class="span12" name="telefono3" value="<?php  echo $result->telefono3 ?>"  />
                                         </div>
                                 </div>
-                    
+                                   <!--fin div span12 -->  
 
-
-                                <div class="span12" style="padding: 0%; margin-left: 0">
-                                                                                
+                                  <!--fin div span12 -->  
+                                <div class="span12" style="padding: 0%; margin-left: 0">                                       
                                         <div class="span3">
                                             <label for="correo1">Correo 1:<span class="required"></span></label>
                                             <input id="correo1" readonly class="span12" type="text" name="correo1" value="<?php  echo $result->email ?>"/>
                                         </div>
                                         
-                                        
                                         <div class="span3">
                                             <label for="correo2">Correo 2:</label>
                                             <input id="correo2" readonly type="text" class="span12" name="correo2" value="<?php  echo $result->email2 ?>"  />
-                                        </div>
-
-                                       
+                                        </div>      
                                 </div>
+                                <!--fin div span12 --> 
 
+                                  <!--inicio div span12 -->  
                                 <div class="span12" style="padding: 0%; margin-left: 0">
                                                                                 
                                        <div class="span2">
@@ -170,43 +174,39 @@
                                                 <option <?php if($result->barrio == 'VILLA MARIA'){echo 'selected';} ?>  value="VILLA MARIA">VILLA MARIA</option>
                                                   
                                                     </select>
-                                        </div>    
-                                                                                
-                                                                             
+                                        </div>                                        
                                   </div>
+                                    <!--fin div span12 --> 
 
+                                    <!--inicio div span12 -->  
                                   <div class="span12" style="padding: 0%; margin-left: 0">
                                                                                 
                                         <div class="span6">
                                             <label for="direccion">Direccion:<span class="required"></span></label>
                                             <input id="direccion" readonly class="span12" type="text" name="direccion" value="<?php  echo $result->ruc ?>"/>
-                                        </div>
-                                        
-                                             
-                                </div>
+                                        </div>         
+                                 </div>
+                                  <!--fin div span12 --> 
 
-                                <div class="span12" style="padding: 0%; margin-left: 0">
-                                                                                
+                                 <!--inicio div span12 -->  
+                                <div class="span12" style="padding: 0%; margin-left: 0">                                        
                                         <div class="span6">
                                                 <label for="referencia">Referencia:<span class="required"></span></label>
                                                 <input id="referencia" readonly class="span12" type="text" name="referencia" value="<?php  echo $result->referencia ?>"/>
-                                        </div>
-                                                                                
-                                                                                     
+                                        </div>                                                    
                                 </div>
-
+                                   <!--fin div span12 -->
                                
                                 <a href="http://localhost:8082/micasita_demo/index.php/panelcliente/conta" id="" class="btn btn-primary "><i class="icon-arrow-left"></i> Volver</a>
                             
+                        </div>    
+                        <!-- fin div tab1 -->        
 
 
-                               
+                         <!-- inicio div tab2 --> 
+                        <div id="tab2" class="tab-pane" style="min-height: 300px"> 
 
-                        </div>            
-
-
-                        <div id="tab2" class="tab-pane" style="min-height: 300px">    
-                             <!--Anexos-->                      
+                             <!--inicio div span12 Anexos-->                      
                             <div class="span12" style="padding: 1%; margin-left: 0">
                                 
                                 <div class="span12" id="divAnexos" style="margin-left: 0">
@@ -233,54 +233,134 @@
                                         }
                                         else{
                                             $thumb = base_url().'assets/anexos/thumbs/'.$a->thumb;
-                                            $link = $a->url.$a->anexo;
+                                            $link = str_replace(" ","_",$a->url.$a->anexo);
                                         }
                                         if($cont == $flag){
-                                            echo '<tr><td style=text-align:center;>'.$a->anexo.'</td><td style=text-align:center;><div style="margin-left: 0" class="span"><a href="#modal-anexo" id="uploadPDF" imagem="'.$a->idAnexos.'" link="'.$link.'" role="button" otro="'.$a->anexo.'" class="btn anexo" data-toggle="modal" ><p>'.$a->anexo.'</p></a></div></td></tr>'; 
+                                            echo '<tr><td style=text-align:center;>'.$a->nombre_original.'</td><td style=text-align:center;><div style="margin-left: 0" class="span"><a href="#modal-anexo" id="uploadPDF" imagem="'.$a->idAnexos.'" link="'.$link.'" role="button" otro="'.$a->anexo.'" class="btn anexo" data-toggle="modal" ><p>'.$a->anexo.'</p></a></div></td></tr>'; 
                                             $flag += 4;
                                          }
                                          else{
-                                            echo '<tr><td style=text-align:center;>'.$a->anexo.'</td><td style=text-align:center;><div class="span"><a href="#modal-anexo" imagem="'.$a->idAnexos.'" link="'.$link.'" role="button" class="btn anexo" otro="'.$a->anexo.'" data-toggle="modal" ><p>'.$a->anexo.'</p></a></div></td></tr>'; 
+                                            echo '<tr><td style=text-align:center;>'.$a->nombre_original.'</td><td style=text-align:center;><div class="span"><a href="#modal-anexo" imagem="'.$a->idAnexos.'" link="'.$link.'" role="button" class="btn anexo" otro="'.$a->anexo.'" data-toggle="modal" ><p>'.$a->anexo.'</p></a></div></td></tr>'; 
                                          }
                                          $cont ++;
                                     } ?>
-                                    </tbody></table>
+                                    </tbody>
+                                    </table>
                                 </div>
 
                             </div>
+                             <!--fin div span12 Anexos-->   
 
                             <a href="http://localhost:8082/micasita_demo/index.php/panelcliente/conta" id="" class="btn btn-primary"><i class="icon-arrow-left"></i> Volver</a>
                             
                 
-                        </div>    
+                        </div>   
+                        <!-- fin div tab2 --> 
                         
+
+                           <!--inicio div tab3 --> 
+                        <div id="tab3" class="tab-pane" style="min-height: 300px">    
+                            <div class="span12"> 
+                                 <label for="tipo"  class="">Estado Evaluación:<span class="required"></span></label>
+                                  <select id="tipo" disabled  type="text" name="tipo" value="" class="span12">      
+                                  <option <?php if($result->estadolinea == '0'){echo 'selected';} ?>    value="0">Evaluacion</option>
+                                    <option  <?php if($result->estadolinea == '1'){echo 'selected';} ?>  value="1">Aprobado</option>
+                                    <option  <?php if($result->estadolinea == '2'){echo 'selected';} ?> value="2">Rechazado</option>
+                                 </select>    
+                            </div> 
+                            <div class="span12" style="padding: 0%; margin-left: 0">                                               
+                                        <div class="span6">
+                                            <label for="finicio">Fecha Inicio Vigencia:<span class="required"></span></label>
+                                            <input id="finicio"  readonly class="span12" type="text" name="finicio" value="<?php echo date('d/m/Y', strtotime($result->fechainicio)); ?>"/>
+                                        </div>   
+                                        <div class="span6">
+                                            <label for="ffinal">Fecha Fin Vigencia:</label>
+                                            <input id="ffinal" readonly  type="text" class="span12" name="ffinal" value="<?php   
+                                             $dataFinal = date(('d/m/Y'),strtotime($result->fechafin));
+                                            if($dataFinal ==  "01/01/1970"){
+                                                echo '';
+                                            }
+                                            else{
+                                                echo $dataFinal;
+                                            }  ?>"  />
+                                        </div>          
+                            </div>
+                           <div class="span12" style="padding: 0%; margin-left: 0">                                            
+                                        <div class="span6"> 
+
+
+                                        <!--<label for="">Adjuntar Archivo</label>
+                                        <input type="file" class="span12" name="userfile[]" multiple="multiple" size="20" />-->
+
+                                        <?php 
+                                    $cont = 1;
+                                    $flag = 5;
+                                    foreach ($anexos3 as $a) {
+
+                                        if($a->thumb == null){
+                                            $thumb = base_url().'assets/img/icon-file.png';
+                                            $link = base_url().'assets/img/icon-file.png';
+                                        }
+                                        else{
+                                            $thumb = base_url().'assets/anexos/thumbs/'.$a->thumb;
+                                            $link = str_replace(" ","_",$a->url.$a->anexo);
+                                        }
+                                        if($cont == $flag){
+                                            echo '<tr><td>'.$a->nombre_original.'</td><td><div style="margin-left: 0" class="span"><a href="#modal-anexo" imagem="'.$a->idAnexos.'" link="'.$link.'" role="button" otro="'.$a->anexo.'" class="btn anexo" data-toggle="modal"><p>'.$a->anexo.'</p></a></div><br></td></tr>'; 
+                                            $flag += 4;
+                                         }
+                                         else{
+                                            echo '<tr><td>'.$a->nombre_original.'</td><td><div class="span"><a href="#modal-anexo" imagem="'.$a->idAnexos.'" link="'.$link.'" role="button" otro="'.$a->anexo.'" class="btn anexo" data-toggle="modal"><p>'.$a->anexo.'</p></a></div><br></td></tr>'; 
+                                         }
+                                         $cont ++;
+                                    } ?>
+
+                                
+                                           </div>         
+                            </div>
+                            <div class="span12" style="padding: 0%; margin-left: 0">                                             
+                                        <div class="span12">
+                                        <label for="correo2">Comentarios:</label>
+                                        <textarea readonly class="span12" name="comentarios" id="comentarios" cols="50" rows="5"><?php echo $result->comentario ?></textarea>
+                                            </div>          
+                            </div>
+                            <a href="http://localhost:8082/micasita_demo/index.php/panelcliente/conta" id="" class="btn btn-primary"><i class="icon-arrow-left"></i> Volver</a>
+                        </div>    
+                        <!--fin div tab3 --> 
+                   
+
+ 
                      </div>  
+                      <!-- inicio div widget-content -->
+
+
                         
                                 
-     </div>
-</div>
+     </div><!-- fin div span12 -->
+
+</div><!-- fin div row-fluid -->
 
                         <!-- Modal visualizar anexo -->
-                        <div id="modal-anexo" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                             <div class="modal-header">
-                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                 <h3 id="myModalLabel">Visualizar Archivo Adjunto</h3>
-                            </div>
+                        <!--<div id="modal-anexox" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                             <div class="modal-header">-->
+                               <!--  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>-->
+                               <!--  <h3 id="myModalLabel">Visualizar Archivo Adjunto</h3>
+                            </div>-->
                             <!--<div class="modal-body" style="border:1px solid green;">-->
-                               <div class="span12" id="div-visualizar-anexo" style="text-align: center;">
+                              <!-- <div class="span12" id="div-visualizar-anexo" style="text-align: center;">
                                     <div class='progress progress-info progress-striped active'>
                                       <div class='bar' style='width: 100%'></div>
                                     </div>
-                               </div>
+                               </div>-->
                             <!--</div>-->
-                        </div>
-                        <div class="modal-footer">
+                    <!--    </div>
+                        <div class="modal-footer">-->
                           <!--<button class="btn" data-dismiss="modal" aria-hidden="true">Cerrar</button>-->
                           
                            <!-- <a href="" id-imagem="" class="btn btn-inverse" id="download">Download</a>
                            <a href="" link="" class="btn btn-danger" id="excluir-anexo">Eliminar Archivo Adjunto</a>-->
-                        </div>
-                      </div>
+                       <!-- </div>
+                      </div>-->
 
 <script type="text/javascript">
 
@@ -333,8 +413,9 @@
                      var url = '<?php echo base_url(); ?>os/excluirAnexo/';
 
                     /* $("#div-visualizar-anexo").html('<div >'++'</div>');*/
+                    window.open(link, 'Nombre Ventana');
 
-                    $("#div-visualizar-anexo").html('<iframe frameborder="0" src="'+link+'"></iframe>');
+                   // $("#div-visualizar-anexo").html('<iframe frameborder="0" src="'+link+'" allowfullscreen scrolling="si"></iframe>');
                     /*<img src="'+link+'" alt="">*/
 
                      $("#excluir-anexo").attr('link', url+id);

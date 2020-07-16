@@ -18,7 +18,8 @@ class PanelCliente extends CI_Controller {
 
         $this->load->library('form_validation');       
         $this->data['custom_error'] = '';
-		$this->load->view('panelcliente/login',$this->data);        
+        $this->load->view('panelcliente/login',$this->data);    
+        mail('ronald152515@gmail.com', 'Nueva O.S', 'Nueva Orden de Servicio Ingresada');    
 		
 	}
 
@@ -496,13 +497,9 @@ class PanelCliente extends CI_Controller {
         	redirect('panelcliente');
         }
 
-
         $data['result'] = $this->Conecte_model->getById_clientes_lineas($this->uri->segment(3));
         $data['anexos'] = $this->Conecte_model->getAnexosfiltroslinea($this->session->userdata('id'),'1',$this->uri->segment(3));
-       
-
-  
-
+        $data['anexos3'] = $this->Conecte_model->getAnexosfiltroslinearpta($this->session->userdata('id'),'3',$this->uri->segment(3));
         $data['output'] = 'panelcliente/visualizarlineas';
         $this->load->view('panelcliente/template', $data);
     }
@@ -561,7 +558,7 @@ class PanelCliente extends CI_Controller {
             
                                $data['uploadSuccess'] = $this->upload->data();
 
-                                $this->Conecte_model->anexarlinea($this->session->userdata('id'), $_FILES['userfile1']['name'] ,base_url().'assets/anexos/','thumb_'.$_FILES['userfile1']['name'],realpath('./assets/anexos/'),'1',$this->input->post('idlineaultimo'));
+                                $this->Conecte_model->anexarlinea($this->session->userdata('id'), $_FILES['userfile1']['name'] ,base_url().'assets/anexos/','thumb_'.$_FILES['userfile1']['name'],realpath('./assets/anexos/'),'1',$this->input->post('idlineaultimo'),'archivo linea1');
                   } 
 
 
@@ -583,7 +580,7 @@ class PanelCliente extends CI_Controller {
                            }
      
                             $data['uploadSuccess'] = $this->upload->data();
-                             $this->Conecte_model->anexarlinea($this->session->userdata('id'), $_FILES['userfile2']['name'] ,base_url().'assets/anexos/','thumb_'.$_FILES['userfile2']['name'],realpath('./assets/anexos/'),'1',$this->input->post('idlineaultimo'));
+                             $this->Conecte_model->anexarlinea($this->session->userdata('id'), $_FILES['userfile2']['name'] ,base_url().'assets/anexos/','thumb_'.$_FILES['userfile2']['name'],realpath('./assets/anexos/'),'1',$this->input->post('idlineaultimo'),'archivo linea2');
                     } 
 
 
@@ -608,7 +605,7 @@ class PanelCliente extends CI_Controller {
                            $data['uploadSuccess'] = $this->upload->data();
 
  
-                           $this->Conecte_model->anexarlinea($this->session->userdata('id'), $_FILES['userfile3']['name'] ,base_url().'assets/anexos/','thumb_'.$_FILES['userfile3']['name'],realpath('./assets/anexos/'),'1',$this->input->post('idlineaultimo'));
+                           $this->Conecte_model->anexarlinea($this->session->userdata('id'), $_FILES['userfile3']['name'] ,base_url().'assets/anexos/','thumb_'.$_FILES['userfile3']['name'],realpath('./assets/anexos/'),'1',$this->input->post('idlineaultimo'),'archivo linea3');
                     } 
 
                     if(!empty($_FILES['userfile4']['name'])){
@@ -631,30 +628,10 @@ class PanelCliente extends CI_Controller {
                        $data['uploadSuccess'] = $this->upload->data();
 
 
-                         $this->Conecte_model->anexarlinea($this->session->userdata('id'), $_FILES['userfile4']['name'] ,base_url().'assets/anexos/','thumb_'.$_FILES['userfile4']['name'],realpath('./assets/anexos/'),'1',$this->input->post('idlineaultimo'));
+                         $this->Conecte_model->anexarlinea($this->session->userdata('id'), $_FILES['userfile4']['name'] ,base_url().'assets/anexos/','thumb_'.$_FILES['userfile4']['name'],realpath('./assets/anexos/'),'1',$this->input->post('idlineaultimo'),'archivo linea4');
                      } 
 
-                    if(!empty($_FILES['userfile5']['name'])){
-                       $nombreCompleto          = $_FILES['userfile5']['name'];
-                       $config['upload_path']   = '././assets/anexos/';
-                       $config['allowed_types'] = '*';
-                       $config['max_size']      = 2000;
-                       $config['max_width']     = 0;
-                       $config['max_height']    = 0;
-                       $config['file_name']     = $nombreCompleto;
-                        $this->load->library('upload', $config);
-
-                         if (!$this->upload->do_upload('userfile5')) {
-
-                         $data['uploadError'] = $this->upload->display_errors();
-                         echo $this->upload->display_errors();
-                         return;
-                    }
-
-                     $data['uploadSuccess'] = $this->upload->data();
-                      $this->Conecte_model->anexarlinea($this->session->userdata('id'), $_FILES['userfile5']['name'] ,base_url().'assets/anexos/','thumb_'.$_FILES['userfile5']['name'],realpath('./assets/anexos/'),'1',$this->input->post('idlineaultimo'));
-                 } 
-
+                   
 
                    $this->session->set_flashdata('success','linea modificada con éxito!');
                     redirect(base_url() . 'index.php/panelcliente/conta');
@@ -1100,7 +1077,7 @@ class PanelCliente extends CI_Controller {
                                 
                                     $data['uploadSuccess'] = $this->upload->data();
                 
-                                    $this->Conecte_model->anexarlinea($this->session->userdata('id'), $_FILES['userfile1']['name'] ,base_url().'assets/anexos/','thumb_'.$_FILES['userfile1']['name'],realpath('./assets/anexos/'),'1',$codlinea);
+                                    $this->Conecte_model->anexarlinea($this->session->userdata('id'),  $nombreCompleto ,base_url().'assets/anexos/','thumb_'. $nombreCompleto,realpath('./assets/anexos/'),'1',$codlinea,"archivo linea1");
                                   } 
                 
                             if(!empty($_FILES['userfile2']['name'])){
@@ -1122,7 +1099,7 @@ class PanelCliente extends CI_Controller {
                                     }
                                 
                                     $data['uploadSuccess'] = $this->upload->data();
-                                    $this->Conecte_model->anexarlinea($this->session->userdata('id'), $_FILES['userfile2']['name'] ,base_url().'assets/anexos/','thumb_'.$_FILES['userfile2']['name'],realpath('./assets/anexos/'),'1',$codlinea);
+                                    $this->Conecte_model->anexarlinea($this->session->userdata('id'),$nombreCompleto2 ,base_url().'assets/anexos/','thumb_'. $nombreCompleto2,realpath('./assets/anexos/'),'1',$codlinea, "archivo linea2");
                                  }
 
 
@@ -1146,7 +1123,7 @@ class PanelCliente extends CI_Controller {
                                 
                                     $data['uploadSuccess'] = $this->upload->data();
                                    
-                                    $this->Conecte_model->anexarlinea($this->session->userdata('id'), $_FILES['userfile3']['name'] ,base_url().'assets/anexos/','thumb_'.$_FILES['userfile3']['name'],realpath('./assets/anexos/'),'1',$codlinea);
+                                    $this->Conecte_model->anexarlinea($this->session->userdata('id'), $nombreCompleto3 ,base_url().'assets/anexos/','thumb_'.$nombreCompleto3,realpath('./assets/anexos/'),'1',$codlinea,"archivo linea3");
                                  }
 
                             if(!empty($_FILES['userfile4']['name'])){
@@ -1169,7 +1146,7 @@ class PanelCliente extends CI_Controller {
                                 
                                     $data['uploadSuccess'] = $this->upload->data();
                                    
-                                    $this->Conecte_model->anexarlinea($this->session->userdata('id'), $_FILES['userfile4']['name'] ,base_url().'assets/anexos/','thumb_'.$_FILES['userfile4']['name'],realpath('./assets/anexos/'),'1',$codlinea);
+                                    $this->Conecte_model->anexarlinea($this->session->userdata('id'), $nombreCompleto4 ,base_url().'assets/anexos/','thumb_'.$nombreCompleto4,realpath('./assets/anexos/'),'1',$codlinea,"archivo linea4");
                                  }
 
 
@@ -1233,7 +1210,7 @@ class PanelCliente extends CI_Controller {
                                   }
                     
                                  $data['uploadSuccess'] = $this->upload->data();
-                                 $this->Conecte_model->anexarsolicitud($this->session->userdata('id'), $_FILES['userfile1']['name'] ,base_url().'assets/anexos2/','thumb_'.$_FILES['userfile1']['name'],realpath('./assets/anexos2/'),'2',$codsolicitud);
+                                 $this->Conecte_model->anexarsolicitud($this->session->userdata('id'), $_FILES['userfile1']['name'] ,base_url().'assets/anexos2/','thumb_'.$_FILES['userfile1']['name'],realpath('./assets/anexos2/'),'2',$codsolicitud,"archivo solicitud1");
                                 } 
 
                                 if(!empty($_FILES['userfile2']['name'])){
@@ -1254,7 +1231,7 @@ class PanelCliente extends CI_Controller {
                                        }
                     
                                     $data['uploadSuccess'] = $this->upload->data();
-                                    $this->Conecte_model->anexarsolicitud($this->session->userdata('id'), $_FILES['userfile2']['name'] ,base_url().'assets/anexos2/','thumb_'.$_FILES['userfile2']['name'],realpath('./assets/anexos2/'),'2',$codsolicitud);
+                                    $this->Conecte_model->anexarsolicitud($this->session->userdata('id'), $_FILES['userfile2']['name'] ,base_url().'assets/anexos2/','thumb_'.$_FILES['userfile2']['name'],realpath('./assets/anexos2/'),'2',$codsolicitud,"archivo solicitud2");
                                   }
                                    if(!empty($_FILES['userfile3']['name'])){
                      
@@ -1275,7 +1252,7 @@ class PanelCliente extends CI_Controller {
                                    }
                     
                                     $data['uploadSuccess'] = $this->upload->data();
-                                    $this->Conecte_model->anexarsolicitud($this->session->userdata('id'), $_FILES['userfile3']['name'] ,base_url().'assets/anexos2/','thumb_'.$_FILES['userfile3']['name'],realpath('./assets/anexos2/'),'2',$codsolicitud);
+                                    $this->Conecte_model->anexarsolicitud($this->session->userdata('id'), $_FILES['userfile3']['name'] ,base_url().'assets/anexos2/','thumb_'.$_FILES['userfile3']['name'],realpath('./assets/anexos2/'),'2',$codsolicitud,"archivo solicitud3");
                                    }
                                   if(!empty($_FILES['userfile4']['name'])){                                
                                      $nombreCompleto4          = $_FILES['userfile4']['name'];
@@ -1298,7 +1275,7 @@ class PanelCliente extends CI_Controller {
                     
                                      $data['uploadSuccess'] = $this->upload->data();
                        
-                                        $this->Conecte_model->anexarsolicitud($this->session->userdata('id'), $_FILES['userfile4']['name'] ,base_url().'assets/anexos2/','thumb_'.$_FILES['userfile4']['name'],realpath('./assets/anexos2/'),'2',$codsolicitud);
+                                        $this->Conecte_model->anexarsolicitud($this->session->userdata('id'), $_FILES['userfile4']['name'] ,base_url().'assets/anexos2/','thumb_'.$_FILES['userfile4']['name'],realpath('./assets/anexos2/'),'2',$codsolicitud,"archivo solicitud4");
                                    }
 
 
@@ -1325,7 +1302,7 @@ class PanelCliente extends CI_Controller {
             
                     $data['result'] = $this->Conecte_model->getSolicitudById_($this->uri->segment(3));
                     $data['anexos'] = $this->Conecte_model->getAnexosfiltros($this->session->userdata('id'),'2',$this->uri->segment(3));
-                   
+                    $data['anexos3'] = $this->Conecte_model->getAnexosfiltrossolicitudrpta($this->session->userdata('id'),'4',$this->uri->segment(3));
             
                     $data['output'] = 'panelcliente/visualizarSolicitudes';
                     $this->load->view('panelcliente/template', $data);
@@ -1427,7 +1404,7 @@ class PanelCliente extends CI_Controller {
                     $data['uploadSuccess'] = $this->upload->data();
 
                     
-                    $this->Conecte_model->anexarsolicitud($this->session->userdata('id'), $_FILES['userfile1']['name'] ,base_url().'assets/anexos2/','thumb_'.$_FILES['userfile1']['name'],realpath('./assets/anexos2/'),'2',$this->input->post('soli'));
+                    $this->Conecte_model->anexarsolicitud($this->session->userdata('id'), $_FILES['userfile1']['name'] ,base_url().'assets/anexos2/','thumb_'.$_FILES['userfile1']['name'],realpath('./assets/anexos2/'),'2',$this->input->post('soli').'archivo solicitud1');
             } 
 
 
@@ -1453,7 +1430,7 @@ class PanelCliente extends CI_Controller {
              $data['uploadSuccess'] = $this->upload->data();
 
              
-             $this->Conecte_model->anexarsolicitud($this->session->userdata('id'), $_FILES['userfile2']['name'] ,base_url().'assets/anexos2/','thumb_'.$_FILES['userfile1']['name'],realpath('./assets/anexos2/'),'2',$this->input->post('soli'));
+             $this->Conecte_model->anexarsolicitud($this->session->userdata('id'), $_FILES['userfile2']['name'] ,base_url().'assets/anexos2/','thumb_'.$_FILES['userfile1']['name'],realpath('./assets/anexos2/'),'2',$this->input->post('soli'),'archivo solicitud2');
      } 
 
 
@@ -1480,7 +1457,7 @@ class PanelCliente extends CI_Controller {
      $data['uploadSuccess'] = $this->upload->data();
 
      
-     $this->Conecte_model->anexarsolicitud($this->session->userdata('id'), $_FILES['userfile3']['name'] ,base_url().'assets/anexos2/','thumb_'.$_FILES['userfile3']['name'],realpath('./assets/anexos2/'),'2',$this->input->post('soli'));
+     $this->Conecte_model->anexarsolicitud($this->session->userdata('id'), $_FILES['userfile3']['name'] ,base_url().'assets/anexos2/','thumb_'.$_FILES['userfile3']['name'],realpath('./assets/anexos2/'),'2',$this->input->post('soli'),'archivo solicitud3');
 } 
    
 if(!empty($_FILES['userfile4']['name'])){
@@ -1505,33 +1482,10 @@ if(!empty($_FILES['userfile4']['name'])){
  $data['uploadSuccess'] = $this->upload->data();
 
  
- $this->Conecte_model->anexarsolicitud($this->session->userdata('id'), $_FILES['userfile4']['name'] ,base_url().'assets/anexos2/','thumb_'.$_FILES['userfile4']['name'],realpath('./assets/anexos2/'),'2',$this->input->post('soli'));
+ $this->Conecte_model->anexarsolicitud($this->session->userdata('id'), $_FILES['userfile4']['name'] ,base_url().'assets/anexos2/','thumb_'.$_FILES['userfile4']['name'],realpath('./assets/anexos2/'),'2',$this->input->post('soli'),'archivo solicitud4');
 } 
 
-if(!empty($_FILES['userfile5']['name'])){
 
-                 
-    $nombreCompleto          = $_FILES['userfile5']['name'];
-    $config['upload_path']   = '././assets/anexos2/';
-    $config['allowed_types'] = '*';
-    $config['max_size']      = 2000;
-    $config['max_width']     = 0;
-    $config['max_height']    = 0;
-    $config['file_name']     = $nombreCompleto;
-    $this->load->library('upload', $config);
-
- if (!$this->upload->do_upload('userfile5')) {
- 
-     $data['uploadError'] = $this->upload->display_errors();
-     echo $this->upload->display_errors();
-     return;
- }
-
- $data['uploadSuccess'] = $this->upload->data();
-
- 
- $this->Conecte_model->anexarsolicitud($this->session->userdata('id'), $_FILES['userfile5']['name'] ,base_url().'assets/anexos2/','thumb_'.$_FILES['userfile5']['name'],realpath('./assets/anexos2/'),'2',$this->input->post('soli'));
-} 
 
 
 
@@ -1772,7 +1726,7 @@ if(!empty($_FILES['userfile5']['name'])){
 
             $this->load->library('zip');
             $path = $file->path;
-            $this->zip->read_file($path.'/'.$file->anexo); 
+            $this->zip->read_file($path.'/'.str_replace(" ","_",$file->anexo)); 
             $this->zip->download('file'.date('d-m-Y-H.i.s').'.zip'); 
         }
     }

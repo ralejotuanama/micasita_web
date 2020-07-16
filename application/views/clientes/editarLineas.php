@@ -223,10 +223,11 @@
                                           $m = count($anexos);
                                          if(count($anexos)>0){
                                            foreach ($anexos as $a) {
-                                            $link = $a->url.$a->anexo;
+                                            $link = str_replace(" ","_",$a->url.$a->anexo);
                                              echo '<tr><td style=text-align:center;>'.$a->idAnexos.'</td><td style=text-align:center;><div style="margin-left: 0" class="span"><a href="#modal-anexo" imagem="'.$a->idAnexos.'" link="'.$link.'" role="button" otro="'.$a->anexo.'" class="btn anexo" data-toggle="modal"><p>'.$a->anexo.'</p></a></div></td></tr>'; 
                                             $cont1 ++;                                
                                           } 
+
                                          if($cont1 == 1){
                                           echo '<tr><td style=text-align:center;>archivo</td><td><input  type="file" name="userfile2"  /></td></tr>'; 
                                           echo '<tr><td style=text-align:center;>archivo</td><td><input  type="file" name="userfile3"  /></td></tr>'; 
@@ -277,7 +278,7 @@
                             <div class="span12"> 
                                  <label for="tipo"  class="">Estado Evaluación:<span class="required"></span></label>
                                   <select id="esta"    type="text" name="esta" value="" class="span12">   
-
+                                  <option  <?php if($result->estadolinea == '0'){echo 'selected';} ?>  value="0">Evaluación</option>
                                     <option  <?php if($result->estadolinea == '1'){echo 'selected';} ?>  value="1">Aprobado</option>
                                     <option  <?php if($result->estadolinea == '2'){echo 'selected';} ?> value="2">Rechazado</option>
                                 
@@ -302,9 +303,25 @@
                             </div>
                             <div class="span12" style="padding: 0%; margin-left: 0">                                            
                                         <div class="span6"> 
-                                        <label for="">Adjuntar Archivo</label>
-                                        <input type="file" class="span12" name="userfile20" multiple="multiple" size="20" />
-                                           </div>         
+                                       <label for="">Adjuntar Archivo</label>
+                                         <br>  
+                                      <?php  
+                                          //$m3 = count($anexos3);
+                                         if(count($anexos3)>0){
+                                           foreach ($anexos3 as $a) {
+                                            $link = $a->url.$a->anexo;
+                                             echo '<div style="margin-left: 0" class="span"><a href="#modal-anexo" imagem="'.$a->idAnexos.'" link="'.$link.'" role="button" otro="'.$a->anexo.'" class="btn anexo" data-toggle="modal"><p>'.$a->anexo.'</p></a></div>'; 
+                                                                        
+                                          } 
+                                        }
+                                        else{
+                                          echo '<div><input type="hidden" name="ocultolinea" id="ocultolinea" value="archivo respuestalinea" /><input  type="file" name="userfile20" id="userfile20"  /></div>'; 
+                                        
+                                     }
+                                      ?>
+
+                                       <!-- <input type="file" class="span12" name="userfile20"  size="20" />-->
+                                           </div>       
                             </div>
                             <div class="span12" style="padding: 0%; margin-left: 0">                                             
                                         <div class="span12">
@@ -329,25 +346,27 @@
 
 
                         <!-- Modal visualizar anexo -->
-                        <div id="modal-anexo" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                            <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" 
-                              aria-hidden="true">×</button>
-                            <h3 id="myModalLabel">Visualizar Archivo Adjunto</h3>
+                        <div id="modal-anexo" class="modal hide fade" tabindex="-1" role="dialog" 
+                             aria-labelledby="myModalLabel" aria-hidden="true">
+                               <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" 
+                                         aria-hidden="true">×</button>
+                                         <h3 id="myModalLabel">Archivo</h3>
+                               </div>
+                          <!-- <div class="modal-body">-->
+                                 <div class="span12" id="div-visualizar-anexo" style="text-align: center">
+                                         <div class='progress progress-info progress-striped active'>
+                                                 <div class='bar' style='width: 100%'>
+                                                 </div>
+                                          </div>
+                                  </div>
+                         <!-- </div>-->
+                             <div class="modal-footer">
+                               <button class="btn" data-dismiss="modal" aria-hidden="true">Cerrar</button>
+                                <a href="" id-imagem="" class="btn btn-inverse" id="download">Download</a>
+                               <a href="" link="" class="btn btn-danger" id="excluir-anexo">Eliminar Archivo Adjunto</a>
                              </div>
-                           <div class="modal-body">
-                         <div class="span12" id="div-visualizar-anexo" style="text-align: center">
-                            <div class='progress progress-info progress-striped active'>
-                            <div class='bar' style='width: 100%'></div>
-                            </div>
                         </div>
-                          </div>
-                       <div class="modal-footer">
-                         <button class="btn" data-dismiss="modal" aria-hidden="true">Cerrar</button>
-                         <a href="" id-imagem="" class="btn btn-inverse" id="download">Download</a>
-                        <a href="" link="" class="btn btn-danger" id="excluir-anexo">Eliminar Archivo Adjunto</a>
-                       </div>
-                      </div>
                   
 
                     <script type="text/javascript">
@@ -397,9 +416,10 @@
                                       var otro = $(this).attr('otro');
                                       var url = '<?php echo base_url(); ?>index.php/panelcliente/excluirAnexo/';
                                       //alert(url);
-                                      $("#div-visualizar-anexo").html('<div>'+otro+'</div>');
+                                     /* $("#div-visualizar-anexo").html('<div>'+otro+'</div>');*/
+                                     window.open(link, 'Nombre Ventana');
                                       $("#excluir-anexo").attr('link', url+id);
-
+                                      $("#div-visualizar-anexo").html('<iframe frameborder="0" src="'+link+'" ></iframe>');
                                       $("#download").attr('href', "<?php echo base_url(); ?>index.php/panelcliente/downloadanexo/"+id);
                                 });
 

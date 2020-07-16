@@ -4,8 +4,7 @@ class Mapos extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
-        $this->load->model('mapos_model','',TRUE);
-        
+        $this->load->model('mapos_model','',TRUE);   
     }
 
     public function index() {
@@ -20,18 +19,15 @@ class Mapos extends CI_Controller {
         $this->data['menuPainel'] = 'Painel';
         $this->data['view'] = 'mapos/painel';
         $this->load->view('tema/topo',  $this->data);
-      
     }
 
     public function minhaConta() {
         if((!$this->session->userdata('session_id')) || (!$this->session->userdata('logado'))){
             redirect('mapos/login');
         }
-
         $this->data['usuario'] = $this->mapos_model->getById($this->session->userdata('id'));
         $this->data['view'] = 'mapos/minhaConta';
         $this->load->view('tema/topo',  $this->data);
-     
     }
 
 public function alterarSenha() {
@@ -53,16 +49,13 @@ public function alterarSenha() {
 
         $id= $this->session->userdata('id');
         $result = $this->mapos_model->alterarSenha($senha,$oldSenha,$id);
-
-
         if($result){
             $this->session->set_flashdata('success','Contraseña modificada con éxito!');
             redirect(site_url('mapos/minhaConta'));
         }
         else{
             $this->session->set_flashdata('error','Ocurrió un error al modificar la contraseña!');
-            redirect(site_url('mapos/minhaConta'));
-            
+            redirect(site_url('mapos/minhaConta'));   
         }
     }
 
@@ -72,7 +65,6 @@ public function alterarSenha() {
         }
         
         $termo = $this->input->get('termo');
-
         $data['results'] = $this->mapos_model->pesquisar($termo);
         $this->data['produtos'] = $data['results']['produtos'];
         $this->data['servicos'] = $data['results']['servicos'];
@@ -81,22 +73,17 @@ public function alterarSenha() {
         $this->data['aparatos'] = $data['results']['aparatos'];
         $this->data['view'] = 'mapos/pesquisa';
         $this->load->view('tema/topo',  $this->data);
-      
     }
 
     public function login(){
-        
-        $this->load->view('mapos/login');
-        
+        $this->load->view('mapos/login');  
     }
     public function sair(){
         $this->session->sess_destroy();
         redirect('mapos/login');
     }
 
-
     public function verificarLogin(){
-
         $this->load->library('form_validation');
         $this->form_validation->set_rules('email','Email','valid_email|required|xss_clean|trim');
         $this->form_validation->set_rules('clave','Clave','required|xss_clean|trim');
